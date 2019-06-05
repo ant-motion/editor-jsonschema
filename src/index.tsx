@@ -1,13 +1,178 @@
 import * as React from 'react';
+import { Breadcrumb } from 'antd';
+import classnames from 'classnames';
 
-class EditorJSON extends React.Component {
-  render() {
+import ObjectType from './components/ObjectType';
+import ArrayType from './components/ArrayType';
+import { AllObject, deepCopy, isNumber, deepCopy } from './components/utils';
+
+import 'medium-editor/dist/css/medium-editor.css';
+import 'medium-editor/dist/css/themes/default.css';
+
+interface IProps extends React.HTMLAttributes<{}> {
+  data: AllObject;
+  schema: AllObject;
+  selected?: string[];
+  className?: string;
+  prefixCls?: string;
+  useMediumEditor?: boolean;
+  onChange?: (data: AllObject) => void;
+}
+
+interface IState {
+  selected: string[];
+}
+
+class EditorJSON extends React.Component<IProps, IState> {
+  static defaultProps = {
+    prefixCls: 'rc-editor-jsonschema',
+    useMediumEditor: true,
+    onChange: () => { },
+  };
+
+  constructor(props) {
+    super(props);
+    const { schema } = props;
+    const { properties } = schema;
+    this.state = {
+      selected: props.selected || Object.keys(properties),
+    };
+  }
+
+  onChange = (text, selected) => {
+    const { data, onChange } = this.props;
+    const $data = deepCopy(data);
+    let t = $data;
+    selected.forEach((key, i) => {
+      if (i >= selected.length - 1) {
+        return;
+      }
+      t = t[key];
+    });
+    t.children = text;
+    console.log(t, $data);
+    onChange($data);
+  }
+
+  onClick = (selected: string[]) => {
+    this.setState({
+      selected: selected,
+    });
+  }
+
+  getDataAndSchema = () => {
+    const { selected } = this.state;
+    let { schema, data } = this.props;
+    // 显示当前 selected 的所有东西;
+    selected.forEach(key => {
+      schema = !isNumber(key) ? schema.properties[key] : schema;
+      data = data[key];
+    });
+    console.log(schema, data);
+    return { schema, data };
+  }
+
+  getChildToRender = () => {
+    const { selected } = this.state;
+    const { prefixCls, useMediumEditor } = this.props;
+    let { schema, data } = this.getDataAndSchema();
+    const selectedEnd = selected[selected.length - 1];
+    // object 和 array 为带子级 type, 其它的都在 object 里处理;
+    let component;
+    if (isNumber(selectedEnd)) {
+      component = ObjectType;
+      schema = deepCopy(schema);
+      schema.type = 'object';
+    } else {
+      switch (schema.type) {
+        case 'object':
+          component = ObjectType;
+          break;
+        case 'array':
+          component = ArrayType;
+          break;
+        default:
+          console.error('type error: 类型没有。');
+          return null;
+      }
+    }
+
+    return React.createElement(component, {
+      data,
+      onChange: this.onChange,
+      onClick: this.onClick,
+      schema,
+      prefixCls,
+      useMediumEditor,
+      selected,
+      parentSelected: selected,
+    });
+  }
+
+  onBreadcrumbClick = (i) => {
+    const { selected } = this.state;
+    selected.splice(i + 1, selected.length);
+    this.setState({
+      selected,
+    });
+  }
+
+  getBreadcrumb = () => {
+    const { schema } = this.props;
+    let { selected } = this.state;
+    let schemaData = schema.properties;
+    // 去除 selected 里的 Array 数值;
+    // selected = selected.filter(c => !Number(c));
+    // 取三级面包屑；
+    /*  let currentBreadcrumb = selected.filter((_, c) => c);
+     currentBreadcrumb = currentBreadcrumb.filter((_, i) => i >= currentBreadcrumb.length - 3); */
+    const currentBreadcrumb = selected.filter((_, i) => i >= selected.length - 3);
+    const currentNum = selected.indexOf(currentBreadcrumb[0]);
+    console.log(currentBreadcrumb);
+    const $selected = [...selected];
+    const newSelected = $selected.splice(currentNum, $selected.length);
+    $selected.forEach(key => {
+      schemaData = isNumber(key) ? schemaData : schemaData[key].properties;
+    });
+    const child = newSelected.map((key, i) => {
+      const name = isNumber(key) ? key : schemaData[key].description;
+      schemaData = isNumber(key) ? schemaData : schemaData[key].properties;
+      return (
+        <Breadcrumb.Item
+          key={i.toString()}
+          onClick={
+            i < newSelected.length - 1 ? () => {
+              this.onBreadcrumbClick(currentNum + i);
+            } : null
+          }
+        >
+          {name.split('$')[0]}
+        </Breadcrumb.Item>
+      );
+    });
     return (
-      <div>
-        text
+      <Breadcrumb>
+        {child}
+      </Breadcrumb>
+    );
+  }
+
+  render() {
+    const { className, prefixCls, schema, data, useMediumEditor, ...props } = this.props;
+    const wrapperClassName = classnames(
+      `${prefixCls}-wrapper`,
+      className,
+    );
+    return (
+      <div className={wrapperClassName} {...props}>
+        <div className={`${prefixCls}-breadcrumb`}>
+          {this.getBreadcrumb()}
+        </div>
+        <div className={`${prefixCls}-container`}>
+          {this.getChildToRender()}
+        </div>
       </div>
     );
   }
 }
 export default EditorJSON;
-

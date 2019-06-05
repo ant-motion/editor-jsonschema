@@ -1,3 +1,147 @@
-.a {
-  position: relative;
+@editorJSON: rc-editor-jsonschema;
+@title-color: #fff;
+@text-color: #FAFBFC;
+@text-color2: #CED4D9;
+@line-color: #3F4142;
+@bg-color: #262829;
+@remark-color: fade(@text-color2, 45);
+
+.@{editorJSON} {
+  &-wrapper {
+    position: relative;
+    background: @bg-color;
+    color: @text-color;
+
+    height: 100%;
+
+    .ant-input {
+      background: @bg-color;
+      border-color: @line-color;
+      color: @text-color;
+      box-shadow: none;
+    }
+  }
+
+  &-breadcrumb {
+    padding: 0 16px;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 2px solid @line-color;
+    display: flex;
+    align-items: center;
+
+    .ant-breadcrumb {
+      color: @title-color;
+
+      >span {
+        cursor: pointer;
+      }
+
+      &-separator,
+      >span:last-child {
+        color: @title-color;
+        cursor: auto;
+      }
+    }
+  }
+
+  &-container {
+    overflow: auto;
+    padding: 0 16px 24px;
+    height: ~"calc(100% - 40px)";
+  }
+
+  &-box {
+    margin: 8px 0;
+
+    &-content {
+      margin: 4px 0;
+      padding: 0 4px;
+
+      .@{editorJSON} {
+        &-title {
+          color: @text-color2;
+        }
+
+        &-array {
+          &-title {
+            border: none;
+            line-height: 24px;
+          }
+        }
+      }
+    }
+    &-text {
+      margin-top: 16px;
+    }
+  }
+
+  &-title {
+    border-bottom: 1px solid @line-color;
+    line-height: 32px;
+
+    &-btn {
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    &-x {
+      margin: 8px 0;
+      color: @text-color2;
+    }
+  }
+
+  &-editor {
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid @line-color;
+    line-height: 1.5;
+    padding: 4px 8px;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &-remark {
+    margin: 8px 0;
+    color: @remark-color;
+  }
+
+  &-array {
+    &-bar {
+      line-height: 32px;
+      height: 32px;
+      background: lighten(@bg-color, 5%);
+      margin: 0 0 8px;
+      padding: 0 8px;
+
+      &-text {
+        cursor: pointer;
+      }
+
+      &-icon {
+        opacity: 0;
+        transition: opacity .3s;
+        float: right;
+        cursor: pointer;
+      }
+
+      p {
+        width: ~"calc(100% - 14px)";
+        display: inline-block;
+      }
+
+      &:hover {
+        .@{editorJSON}-array-bar-icon {
+          opacity: 1;
+        }
+      }
+    }
+
+    &-sort-bars {
+      display: inline-block;
+      margin-right: 8px;
+    }
+  }
 }

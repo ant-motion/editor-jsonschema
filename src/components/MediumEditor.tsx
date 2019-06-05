@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const noop = () => { };
-export default class Editor extends React.Component<IProps> {
+export default class Editor extends React.PureComponent<IProps> {
   medium = null;
   dom: HTMLDivElement;
 

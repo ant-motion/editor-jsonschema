@@ -4,13 +4,16 @@ export type AllObject = { [key: string]: any };
 
 export interface IProps {
   schema?: AllObject;
+  parentSchema?: AllObject;
   data?: AllObject | string;
+  parentData?: AllObject | string;
   prefixCls?: string;
   useMediumEditor?: boolean;
   selected?: string[];
   parentSelected?: string[];
   boxClassName?: string;
-  onChange?: (text: string, selected?: string[]) => void;
+  noTitle?: boolean;
+  onChange?: (text: string | any[], selected?: string[]) => void;
   onClick?: (selected?: string[]) => void;
 }
 

@@ -2,6 +2,7 @@
 @title-color: #fff;
 @text-color: #FAFBFC;
 @text-color2: #CED4D9;
+@primary-color: #2F54EB;
 @line-color: #3F4142;
 @bg-color: #262829;
 @remark-color: fade(@text-color2, 45);
@@ -55,8 +56,7 @@
     margin: 8px 0;
     font-weight: 200;
 
-    &-content {
-      margin: 4px 0;
+    &-child {
       padding: 0 4px;
 
       .@{editorJSON} {
@@ -73,8 +73,10 @@
         }
       }
     }
+
+    &-array,
     &-text {
-      margin-top: 16px;
+      margin: 16px 0;
     }
   }
 
@@ -98,8 +100,10 @@
     outline: none;
     border-radius: 4px;
     border: 1px solid @line-color;
-    line-height: 1.5;
-    padding: 4px 8px;
+    line-height: 20px;
+    min-height: 20px;
+    padding: 1px 7px;
+    box-sizing: content-box;
 
     p {
       margin: 0;
@@ -113,11 +117,11 @@
 
   &-array {
     &-bar {
-      line-height: 32px;
-      height: 32px;
+      line-height: 28px;
+      height: 28px;
       background: lighten(@bg-color, 5%);
       margin: 0 0 8px;
-      padding: 0 8px;
+      padding: 0 7px;
 
       &-text {
         cursor: pointer;
@@ -146,6 +150,24 @@
       display: inline-block;
       margin-right: 8px;
       color: fade(@text-color, 50);
+    }
+
+    &-add {
+      margin: 16px 0;
+      padding: 8px 0;
+      font-weight: 400;
+      border-top: 1px solid fade(@line-color, 30);
+
+      .anticon {
+        margin-right: 8px;
+      }
+      a {
+        
+        color: @primary-color;
+        &:hover {
+          color: lighten(@primary-color, 5%)
+        }
+      }
     }
   }
 }

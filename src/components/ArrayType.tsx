@@ -20,11 +20,34 @@ interface IMProps extends IProps {
 }
 
 export default class ArrayType extends React.Component<IMProps> {
-  onDragEnd = () => {
-
+  sortArray = (data: any[], index: number, end: number) => {
+    const [removed] = data.splice(index, 1);
+    data.splice(end, 0, removed);
+    return data;
   }
+
+  onDragEnd = (result) => {
+    const { source, destination, draggableId } = result;
+    const { data, onChange, selected } = this.props;
+    if (!destination) {
+      return;
+    }
+    /* if (source.droppableId === destination.droppableId) {
+
+    } */
+    const $data = this.sortArray(data, source.index, destination.index);
+    onChange($data, selected);
+  }
+
+  onAddClick = () => {
+    const { data, selected, onChange } = this.props;
+    const $data = [...data];
+    $data.push(data[data.length - 1]);
+    onChange($data, selected);
+  }
+
   getChildrenToRender = () => {
-    const { schema, data, prefixCls, selected, onClick } = this.props;
+    const { schema, data, prefixCls, selected, onClick, noTitle } = this.props;
     const { description, properties } = schema;
     const names = description.split(remarkStr);
     const children = data.map((item, i) => {
@@ -72,7 +95,7 @@ export default class ArrayType extends React.Component<IMProps> {
           {
             (provided, snapshot) => (
               <div ref={provided.innerRef} >
-                <div
+                {!noTitle && <div
                   className={className}
                   style={{
                     marginBottom: names[1] ? 0 : 8,
@@ -86,8 +109,8 @@ export default class ArrayType extends React.Component<IMProps> {
                   >
                     {names[0]}
                   </span>
-                </div>
-                {names[1] && (
+                </div>}
+                {!noTitle && names[1] && (
                   <div className={`${prefixCls}-remark`} >
                     <Icon type="exclamation-circle" />
                     {' '}
@@ -96,6 +119,12 @@ export default class ArrayType extends React.Component<IMProps> {
                 )}
                 {children}
                 {provided.placeholder}
+                <div className={`${prefixCls}-array-add`}>
+                  <a onClick={this.onAddClick}>
+                    <Icon type="plus" />
+                    新增内容
+                  </a>
+                </div>
               </div>
             )
           }
@@ -105,7 +134,7 @@ export default class ArrayType extends React.Component<IMProps> {
   }
   render() {
     const { prefixCls, boxClassName } = this.props;
-    const className = classnames(`${prefixCls}-box`, boxClassName);
+    const className = classnames(`${prefixCls}-box`, `${prefixCls}-box-array`, boxClassName);
     return (
       <div className={className}>
         {this.getChildrenToRender()}

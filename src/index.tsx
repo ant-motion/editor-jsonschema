@@ -20,6 +20,7 @@ interface IProps extends React.HTMLAttributes<{}> {
 }
 
 interface IState {
+  data: AllObject;
   selected: string[];
 }
 
@@ -35,23 +36,36 @@ class EditorJSON extends React.Component<IProps, IState> {
     const { schema } = props;
     const { properties } = schema;
     this.state = {
+      data: props.data,
       selected: props.selected || Object.keys(properties),
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== this.props.data) {
+      this.setState({
+        data: nextProps.data,
+      });
+    }
+  }
+
   onChange = (text, selected) => {
-    const { data, onChange } = this.props;
+    const { onChange } = this.props;
+    const { data } = this.state;
     const $data = deepCopy(data);
     let t = $data;
     selected.forEach((key, i) => {
       if (i >= selected.length - 1) {
+        t[key] = text;
         return;
       }
       t = t[key];
     });
-    t.children = text;
-    console.log(t, $data);
-    onChange($data);
+    this.setState({
+      data: $data,
+    }, () => {
+      onChange($data);
+    });
   }
 
   onClick = (selected: string[]) => {
@@ -61,8 +75,8 @@ class EditorJSON extends React.Component<IProps, IState> {
   }
 
   getDataAndSchema = () => {
-    const { selected } = this.state;
-    let { schema, data } = this.props;
+    let { selected, data } = this.state;
+    let { schema } = this.props;
     // 显示当前 selected 的所有东西;
     selected.forEach(key => {
       schema = !isNumber(key) ? schema.properties[key] : schema;

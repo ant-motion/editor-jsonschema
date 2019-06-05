@@ -13,21 +13,26 @@ export default class TextType extends React.Component<IMProps> {
   onInputChange = (e) => {
     const target = e.target;
     const { onChange, selected } = this.props;
-    console.log(selected);
     onChange(target.value, selected);
   }
 
   render() {
-    const { schema, data, prefixCls, useMediumEditor, onChange } = this.props;
+    const { schema, data, prefixCls, useMediumEditor, selected, noTitle, onChange } = this.props;
     const { description } = schema;
     const childNames = description.split(remarkStr);
     const child = useMediumEditor ?
-      <MediumEditor defaultText={data} className={`${prefixCls}-editor`} onChange={onChange} /> :
-      <Input defaultValue={data} onChange={this.onInputChange} />;
+      <MediumEditor
+        defaultText={data}
+        className={`${prefixCls}-editor`}
+        onChange={(v) => {
+          onChange(v, selected);
+        }}
+      /> :
+      <Input defaultValue={data} onChange={this.onInputChange} size="small" />;
     const className = classnames(`${prefixCls}-box`, `${prefixCls}-box-text`);
     return (
       <div className={className}>
-        {/* 不显示文字里的标题 !noTitle && <div className={`${prefixCls}-title-x`}>{childNames[0]}</div> */}
+        {!noTitle && <div className={`${prefixCls}-title-x`}>{childNames[0]}</div>}
         <div>{child}</div>
         {childNames[1] && <div>{childNames[1]}</div>}
       </div>

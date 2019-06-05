@@ -181,7 +181,7 @@ const dataSource = {
 
 class Demo extends React.Component<any, any> {
   render() {
-    const selected = 'carouselWrapper&children&1&children&children&0'.split('&');
+    const selected = 'carouselWrapper&children&1'.split('&');
     return (
       <div style={{ width: 240, height: 600 }}>
         <EditorJSON data={dataSource} schema={schema} selected={selected} />

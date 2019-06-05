@@ -46,6 +46,13 @@ export default class ArrayType extends React.Component<IMProps> {
     onChange($data, selected);
   }
 
+  onRemove = (n) => {
+    const { data, selected, onChange } = this.props;
+    const $data = [...data];
+    $data.splice(n, 1);
+    onChange($data, selected);
+  }
+
   getChildrenToRender = () => {
     const { schema, data, prefixCls, selected, onClick, noTitle } = this.props;
     const { description, properties } = schema;
@@ -76,7 +83,12 @@ export default class ArrayType extends React.Component<IMProps> {
                   >
                     {i}. {childName}{childName.length < length ? '...' : ''}
                   </span>
-                  <span className={`${prefixCls}-array-bar-icon`}>
+                  <span
+                    className={`${prefixCls}-array-bar-icon`}
+                    onClick={() => {
+                      this.onRemove(i);
+                    }}
+                  >
                     <Icon type="delete" />
                   </span>
                 </div>

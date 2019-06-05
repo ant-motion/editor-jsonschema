@@ -5,6 +5,7 @@
 @primary-color: #2F54EB;
 @line-color: #3F4142;
 @bg-color: #262829;
+@bg-color2: #2B2D2E;
 @remark-color: fade(@text-color2, 45);
 
 .@{editorJSON} {
@@ -16,11 +17,23 @@
     height: 100%;
 
     .ant-input {
-      background: @bg-color;
+      background: @bg-color2;
       border-color: @line-color;
       color: @text-color;
       box-shadow: none;
     }
+    .ant-select {
+      &-selection {
+        background: @bg-color2;
+        border-color: @line-color;
+        color: @text-color;
+        box-shadow: none;
+      }
+      &-arrow {
+        color: inherit;
+      }
+    }
+    
   }
 
   &-breadcrumb {
@@ -48,7 +61,7 @@
 
   &-container {
     overflow: auto;
-    padding: 0 16px 24px;
+    padding: 0 16px 16px;
     height: ~"calc(100% - 40px)";
   }
 
@@ -104,6 +117,7 @@
     min-height: 20px;
     padding: 1px 7px;
     box-sizing: content-box;
+    background: @bg-color2;
 
     p {
       margin: 0;

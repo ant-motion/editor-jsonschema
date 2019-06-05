@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import ObjectType from './components/ObjectType';
 import ArrayType from './components/ArrayType';
-import { AllObject, deepCopy, isNumber, deepCopy } from './components/utils';
+import { AllObject, deepCopy, isNumber } from './utils';
 
 import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/default.css';
@@ -126,9 +126,7 @@ class EditorJSON extends React.Component<IProps, IState> {
     // 取三级面包屑；
     /*  let currentBreadcrumb = selected.filter((_, c) => c);
      currentBreadcrumb = currentBreadcrumb.filter((_, i) => i >= currentBreadcrumb.length - 3); */
-    const currentBreadcrumb = selected.filter((_, i) => i >= selected.length - 3);
-    const currentNum = selected.indexOf(currentBreadcrumb[0]);
-    console.log(currentBreadcrumb);
+    const currentNum = selected.length - (selected.length > 3 ? 3 : selected.length);
     const $selected = [...selected];
     const newSelected = $selected.splice(currentNum, $selected.length);
     $selected.forEach(key => {
@@ -159,6 +157,7 @@ class EditorJSON extends React.Component<IProps, IState> {
 
   render() {
     const { className, prefixCls, schema, data, useMediumEditor, ...props } = this.props;
+    console.log(schema);
     const wrapperClassName = classnames(
       `${prefixCls}-wrapper`,
       className,

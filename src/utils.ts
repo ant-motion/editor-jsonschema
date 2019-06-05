@@ -16,7 +16,6 @@ export interface IProps {
 
 export const remarkStr = '$remark=';
 
-
 export function deepCopy(data) {
   if (typeof data !== 'object' || !data) {
     return data;

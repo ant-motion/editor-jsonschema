@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Input } from 'antd';
 import classnames from 'classnames';
 import MediumEditor from './MediumEditor';
-import { remarkStr, IProps } from './utils';
+import { remarkStr, IProps } from '../utils';
 
 interface IMProps extends IProps {
   data?: string;

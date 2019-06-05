@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Icon } from 'antd';
 import classnames from 'classnames';
 import Comp from './Comp';
-import { IProps, remarkStr, isNumber } from './utils';
+import { IProps, remarkStr, isNumber } from '../utils';
 
 
 export default class ObjectType extends React.Component<IProps> {

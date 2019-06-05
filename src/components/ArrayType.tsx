@@ -3,7 +3,7 @@ import { Icon } from 'antd';
 import classnames from 'classnames';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Comp from './Comp';
-import { IProps, AllObject, remarkStr } from './utils';
+import { IProps, AllObject, remarkStr } from '../utils';
 
 const barIcon = () => (
   <svg width="1em" height="1em" viewBox="0 0 6 11" fill="currentColor">
@@ -28,7 +28,10 @@ export default class ArrayType extends React.Component<IMProps> {
     const { description, properties } = schema;
     const names = description.split(remarkStr);
     const children = data.map((item, i) => {
-      console.log(item);
+      console.log(item, properties);
+      let childName = typeof item.children === 'string' ? item.children : `${names[0]}`;
+      const length = childName.length;
+      childName = childName.substring(0, 8);
       return (
         <Draggable key={i.toString()} index={i} draggableId={i.toString()}>
           {
@@ -48,7 +51,7 @@ export default class ArrayType extends React.Component<IMProps> {
                     }}
                     className={`${prefixCls}-array-bar-text`}
                   >
-                    {names[0]} - {i}
+                    {i}. {childName}{childName.length < length ? '...' : ''}
                   </span>
                   <span className={`${prefixCls}-array-bar-icon`}>
                     <Icon type="delete" />

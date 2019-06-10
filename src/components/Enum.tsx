@@ -7,7 +7,7 @@ import { IProps } from '../utils';
 
 const { Option } = Select;
 
-export default class Enum extends Box<IProps, any> {
+export default class Enum extends Box<IProps> {
   getChildrenToRender = () => {
     const { schema, data, parentSchema, selected, onChange } = this.props;
     console.log(schema, parentSchema, data);

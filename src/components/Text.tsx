@@ -9,7 +9,7 @@ interface IMProps extends IProps {
   data?: string;
 }
 
-export default class TextType extends Box<IMProps, any> {
+export default class TextType extends Box<IMProps> {
 
   onInputChange = (e) => {
     const target = e.target;

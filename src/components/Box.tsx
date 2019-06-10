@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import { IProps, remarkStr } from '../utils';
 
-export default class Box<props extends IProps, state> extends React.Component<props, state> {
+export default class Box<props extends IProps, state = any> extends React.Component<props, state> {
   getChildrenToRender = () => {
     return null;
   }

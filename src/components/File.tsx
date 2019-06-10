@@ -21,6 +21,11 @@ export default class File extends Box<IMProps, IState> {
 
   beforeUpload = (file) => {
     const { type, uploadImageSize, uploadFileSize } = this.props;
+    const { percent } = this.state;
+    if (percent) {
+      message.error('当前有文件正在上传，请稍后。');
+      return false;
+    }
     const size = type === 'image' ? uploadImageSize : uploadFileSize;
     if (file.size > size) {
       message.error(`大小不能超过 ${Math.floor(size / 1024)}KB`);
@@ -35,11 +40,11 @@ export default class File extends Box<IMProps, IState> {
     const { selected } = this.props;
     switch (status) {
       case 'error': {
-        message.error(`${name} 上传失败`);
+        message.error(`${name} 上传失败。`);
         break;
       }
       case 'done': {
-        message.success(`${name} 上传成功`);
+        message.success(`${name} 上传成功。`);
         this.props.onChange(response.url, selected);
         // 恢复进步条;
         setTimeout(() => {
@@ -47,11 +52,14 @@ export default class File extends Box<IMProps, IState> {
             percent: 0,
           });
         }, 300);
+        this.setState({
+          percent,
+        });
         break;
       }
       default:
         this.setState({
-          percent,
+          percent: percent > 95 ? 95 : percent,
         });
         break;
     }
@@ -59,6 +67,7 @@ export default class File extends Box<IMProps, IState> {
 
   getChildrenToRender = () => {
     const { type, prefixCls, uploadProps, data } = this.props;
+    const { percent } = this.state;
     const image = type === 'image' ? (
       <div className={`${prefixCls}-${type}-img`} style={{ backgroundImage: `url(${data.toString()})` }} />
     ) : null;
@@ -76,7 +85,8 @@ export default class File extends Box<IMProps, IState> {
             showUploadList={false}
           >
             <div className={`${prefixCls}-upload-button`}>
-              <Icon type="upload" /> 选择图片
+              <em style={{ width: `${percent}%` }} />
+              <p><Icon type={percent ? 'loading' : 'upload'} /> 选择图片</p>
             </div>
           </Upload>
         </Col>

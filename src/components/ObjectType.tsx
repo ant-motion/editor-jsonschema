@@ -75,9 +75,10 @@ export default class ObjectType extends React.Component<IProps> {
   render() {
     const { prefixCls, boxClassName } = this.props;
     const className = classnames(`${prefixCls}-box`, boxClassName);
+    const children = this.getChildrenToRender();
     return (
-      <div className={className}>
-        {this.getChildrenToRender()}
+      children && <div className={className}>
+        {children}
       </div>
     );
   }

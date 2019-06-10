@@ -86,7 +86,7 @@ export default class File extends Box<IMProps, IState> {
           >
             <div className={`${prefixCls}-upload-button`}>
               <em style={{ width: `${percent}%` }} />
-              <p><Icon type={percent ? 'loading' : 'upload'} /> 选择图片</p>
+              <p><Icon type={percent ? 'loading' : 'upload'} /> 选择文件</p>
             </div>
           </Upload>
         </Col>

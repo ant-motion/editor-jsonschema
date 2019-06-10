@@ -5,6 +5,7 @@ import ArrayType from './ArrayType';
 import Text from './Text';
 import Enum from './Enum';
 import File from './File';
+import Boolean from './Boolean';
 
 export default class Comp extends React.Component<IProps> {
   render() {
@@ -18,12 +19,12 @@ export default class Comp extends React.Component<IProps> {
       case 'string':
         return <Text {...this.props} type={schema.type} data={data as string} />;
       case 'enum':
-        return <Enum {...this.props} type={schema.type}/>;
+        return <Enum {...this.props} type={schema.type} />;
       case 'file':
       case 'image':
         return <File {...this.props} type={schema.type} />;
       case 'boolean':
-        return null;
+        return <Boolean {...this.props} type={schema.type} />;
       default:
         console.error(`type error: 类型错误(${schema.type})`);
         break;

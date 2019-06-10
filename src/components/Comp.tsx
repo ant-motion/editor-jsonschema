@@ -4,6 +4,7 @@ import ObjectType from './ObjectType';
 import ArrayType from './ArrayType';
 import Text from './Text';
 import Enum from './Enum';
+import File from './File';
 
 export default class Comp extends React.Component<IProps> {
   render() {
@@ -11,13 +12,18 @@ export default class Comp extends React.Component<IProps> {
     // console.log(schema)
     switch (schema.type) {
       case 'object':
-        return <ObjectType {...this.props} data={data} />;
+        return <ObjectType {...this.props} type={schema.type} data={data} />;
       case 'array':
-        return <ArrayType {...this.props} data={data as AllObject[]} />;
+        return <ArrayType {...this.props} type={schema.type} data={data as AllObject[]} />;
       case 'string':
-        return <Text {...this.props} data={data as string} />;
+        return <Text {...this.props} type={schema.type} data={data as string} />;
       case 'enum':
-        return <Enum {...this.props} />;
+        return <Enum {...this.props} type={schema.type}/>;
+      case 'file':
+      case 'image':
+        return <File {...this.props} type={schema.type} />;
+      case 'boolean':
+        return null;
       default:
         console.error(`type error: 类型错误(${schema.type})`);
         break;

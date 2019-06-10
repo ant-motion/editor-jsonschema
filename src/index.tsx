@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb, Upload } from 'antd';
 import classnames from 'classnames';
 
 import ObjectType from './components/ObjectType';
@@ -16,6 +16,9 @@ interface IProps extends React.HTMLAttributes<{}> {
   className?: string;
   prefixCls?: string;
   useMediumEditor?: boolean;
+  uploadProps?: Upload;
+  uploadImageSize?: number;
+  uploadFileSize?: number;
   onChange?: (data: AllObject) => void;
 }
 
@@ -28,6 +31,11 @@ class EditorJSON extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'rc-editor-jsonschema',
     useMediumEditor: true,
+    uploadImageSize: 1024000,
+    uploadFileSize: 2048000,
+    uploadProps: {
+      action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    },
     onChange: () => { },
   };
 
@@ -45,6 +53,11 @@ class EditorJSON extends React.Component<IProps, IState> {
     if (nextProps.data !== this.props.data) {
       this.setState({
         data: nextProps.data,
+      });
+    }
+    if (nextProps.selected !== this.props.selected) {
+      this.setState({
+        selected: nextProps.selected,
       });
     }
   }
@@ -88,7 +101,7 @@ class EditorJSON extends React.Component<IProps, IState> {
 
   getChildToRender = () => {
     const { selected } = this.state;
-    const { prefixCls, useMediumEditor } = this.props;
+    const { prefixCls, useMediumEditor, uploadProps, uploadImageSize, uploadFileSize } = this.props;
     let { schema, data } = this.getDataAndSchema();
     const selectedEnd = selected[selected.length - 1];
     // object 和 array 为带子级 type, 其它的都在 object 里处理;
@@ -119,6 +132,9 @@ class EditorJSON extends React.Component<IProps, IState> {
       prefixCls,
       useMediumEditor,
       selected,
+      uploadProps,
+      uploadImageSize,
+      uploadFileSize,
       parentSelected: selected,
     });
   }
@@ -170,7 +186,7 @@ class EditorJSON extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { className, prefixCls, schema, data, useMediumEditor, ...props } = this.props;
+    const { className, prefixCls, schema, data, useMediumEditor, uploadImageSize, uploadFileSize, uploadProps, ...props } = this.props;
     console.log(schema);
     const wrapperClassName = classnames(
       `${prefixCls}-wrapper`,

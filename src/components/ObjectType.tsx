@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Icon } from 'antd';
 import classnames from 'classnames';
+import evaluate from 'simple-evaluate';
 import Comp from './Comp';
+
 import { IProps, remarkStr, isNumber } from '../utils';
 
 export default class ObjectType extends React.Component<IProps> {
   getChildrenToRender = () => {
-    const { schema, data, prefixCls, useMediumEditor, selected, parentSelected, noTitle, onChange, onClick } = this.props;
+    const { schema, data, parentData, prefixCls, useMediumEditor, selected, parentSelected, noTitle, onChange, onClick, uploadProps, uploadFileSize, uploadImageSize } = this.props;
     const { description, properties } = schema;
     const names = description.split(remarkStr);
     // 如果最后个 select 是数字时，在顶级加上数值；
@@ -15,9 +17,13 @@ export default class ObjectType extends React.Component<IProps> {
     const noTop = selected.toString() !== parentSelected.toString();
     // 判断 children 是否是唯一的;
     const isOnlyChild = Object.keys(properties).length === 1;
+    if (schema.meta && schema.meta.if && !evaluate(parentData, schema.meta && schema.meta.if)) {
+      return null;
+    }
     const children = Object.keys(properties).map(key => {
       const item = properties[key];
-      const boxClass = item.type === 'array' && !isOnlyChild  || item.type === 'object' && noTop ? `${prefixCls}-box-child` : '';
+
+      const boxClass = item.type === 'array' && !isOnlyChild || item.type === 'object' && noTop ? `${prefixCls}-box-child` : '';
       const $selected = [...selected, key];
       return (
         <Comp
@@ -34,6 +40,9 @@ export default class ObjectType extends React.Component<IProps> {
           parentSelected={parentSelected}
           noTitle={isOnlyChild && noTop}
           boxClassName={boxClass}
+          uploadProps={uploadProps}
+          uploadImageSize={uploadImageSize}
+          uploadFileSize={uploadFileSize}
         />
       );
     });

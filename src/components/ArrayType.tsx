@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Icon } from 'antd';
 import classnames from 'classnames';
+import schemaUtil from 'schema-util';
+import evaluate from 'simple-evaluate';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import Comp from './Comp';
+/* import Comp from './Comp'; */
 import { IProps, AllObject, remarkStr } from '../utils';
 
 const barIcon = () => (
@@ -40,9 +42,9 @@ export default class ArrayType extends React.Component<IMProps> {
   }
 
   onAddClick = () => {
-    const { data, selected, onChange } = this.props;
+    const { schema, data, selected, onChange } = this.props;
     const $data = [...data];
-    $data.push(data[data.length - 1]);
+    $data.push(schemaUtil.mock(schema)[0]);
     onChange($data, selected);
   }
 
@@ -54,11 +56,13 @@ export default class ArrayType extends React.Component<IMProps> {
   }
 
   getChildrenToRender = () => {
-    const { schema, data, prefixCls, selected, onClick, noTitle } = this.props;
-    const { description, properties } = schema;
+    const { schema, data, parentData, prefixCls, selected, onClick, noTitle } = this.props;
+    const { description } = schema;
     const names = description.split(remarkStr);
+    if (schema.meta && schema.meta.if && !evaluate(parentData, schema.meta && schema.meta.if)) {
+      return null;
+    }
     const children = data.map((item, i) => {
-      console.log(item, properties);
       let childName = typeof item.children === 'string' ? item.children : `${names[0]}`;
       const length = childName.length;
       childName = childName.substring(0, 8);
@@ -99,6 +103,9 @@ export default class ArrayType extends React.Component<IMProps> {
       );
     });
     const className = classnames(`${prefixCls}-title`, `${prefixCls}-array-title`);
+    // 是否显示添加按钮;
+    const maxLength = schema.meta ? schema.meta.maxLength : null;
+    const showAddButton = !maxLength || children.length < maxLength;
     return (
       <DragDropContext
         onDragEnd={this.onDragEnd}
@@ -131,12 +138,14 @@ export default class ArrayType extends React.Component<IMProps> {
                 )}
                 {children}
                 {provided.placeholder}
-                <div className={`${prefixCls}-array-add`}>
+                {showAddButton ? <div className={`${prefixCls}-array-add`}>
                   <a onClick={this.onAddClick}>
                     <Icon type="plus" />
                     新增内容
                   </a>
-                </div>
+                </div> : (
+                    <p>此数据最多为 {maxLength} 个</p>
+                  )}
               </div>
             )
           }

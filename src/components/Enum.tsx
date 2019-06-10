@@ -1,13 +1,13 @@
 import * as React from 'react';
-import classnames from 'classnames';
 import { Select } from 'antd';
 
-import { IProps, remarkStr } from '../utils';
+import Box from './Box';
+
+import { IProps } from '../utils';
 
 const { Option } = Select;
 
-export default class Enum extends React.Component<IProps> {
-
+export default class Enum extends Box<IProps, any> {
   getChildrenToRender = () => {
     const { schema, data, parentSchema, selected, onChange } = this.props;
     console.log(schema, parentSchema, data);
@@ -17,7 +17,7 @@ export default class Enum extends React.Component<IProps> {
         defaultValue.push(item.value);
       }
       return (
-        <Option value={item.value} key={item.value}>{item.label}</Option>
+        <Option value={item.value} key={item.value}>{item.label} - {item.value}</Option>
       );
     });
     if (!defaultValue.length) {
@@ -37,20 +37,6 @@ export default class Enum extends React.Component<IProps> {
       >
         {options}
       </Select>
-    );
-  }
-  render() {
-    const { schema, prefixCls, noTitle } = this.props;
-    const { description } = schema;
-    const childNames = description.split(remarkStr);
-    const childrenToRender = this.getChildrenToRender();
-    const className = classnames(`${prefixCls}-box`, `${prefixCls}-box-enum`);
-    return (
-      <div className={className}>
-        {!noTitle && <div className={`${prefixCls}-title-x`}>{childNames[0]}</div>}
-        {childrenToRender}
-        {childNames[1] && <div>{childNames[1]}</div>}
-      </div>
     );
   }
 }

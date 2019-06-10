@@ -21,6 +21,10 @@
       border-color: @line-color;
       color: @text-color;
       box-shadow: none;
+      font-weight: 200;
+      &::placeholder {
+        color: fade(@text-color, 15);
+      }
     }
     .ant-select {
       &-selection {
@@ -37,16 +41,14 @@
   }
 
   &-breadcrumb {
-    padding: 0 16px;
-    height: 40px;
-    line-height: 40px;
+    padding: 8px 16px;
     border-bottom: 2px solid @line-color;
     display: flex;
     align-items: center;
 
     .ant-breadcrumb {
-      color: @title-color;
-
+      color: fade(@title-color, 70);
+      transition: color .3s;
       >span {
         cursor: pointer;
       }
@@ -88,9 +90,10 @@
     }
 
     &-array,
-    &-text {
+    &-string {
       margin: 16px 0;
     }
+    
   }
 
   &-title {
@@ -183,5 +186,28 @@
         }
       }
     }
+  }
+
+  &-image {
+    &-img {
+      background-position: center;
+      background-size: cover;
+      width: 100%;
+      height: 60px;
+      background-color: fade(#fff, 15);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+  }
+  &-upload-button {
+    width: 100%;
+    border-radius: 4px;
+    background: #3A3C3D;
+    color: fade(@title-color, 85);
+    border: 1px solid #262829;
+    margin-top: 8px;
+    padding: 4px 8px;
+    overflow: hidden;
+    cursor: pointer;
   }
 }

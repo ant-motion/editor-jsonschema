@@ -2,189 +2,221 @@
 import EditorJSON from '../src/';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { schema } from 'schema-util';
 import '../assets/index.less';
 
-const schema = JSON.parse('{"type":"object","description":"应用场景_0","properties":{"carouselWrapper":{"type":"object","description":"主要信息","properties":{"children":{"type":"array","description":"子级$remark=这是个备注","properties":{"title":{"type":"object","description":"大标题","properties":{"children":{"type":"string","description":"标题文字"}}},"explain":{"type":"object","description":"解释说明","properties":{"children":{"type":"array","description":"内容编辑","properties":{"component":{"type":"enum","description":"标题正文选择","items":[{"label":"标题","value":"h2"},{"label":"内容文字","value":"div"}]},"children":{"type":"string","description":"文字"}}}}},"hot":{"type":"object","description":"热门推荐","properties":{"title":{"type":"object","description":"标题","properties":{"children":{"type":"string","description":"标题文字"}}},"children":{"type":"object","description":"内容区块","properties":{"children":{"type":"array","description":"内容编辑","properties":{"href":{"type":"string","description":"链接地址"},"children":{"type":"string","description":"文字"}}}}}}},"children":{"type":"object","description":"详细说明外壳","properties":{"children":{"type":"array","description":"详细说明","properties":{"component":{"type":"enum","description":"标题正文选择","items":[{"label":"大标题","value":"h2"},{"label":"小标题","value":"h4"},{"label":"内容文字","value":"p"}]},"children":{"type":"string","description":"文字"}}}}}}}}}}}');
+const schemaJSON = schema(`
+Object(产品优势_0) {
+  blockWrapper(主要信息): Object{
+    bannerBgPC(电脑端背景): Object {
+      children(图片地址): Image
+    },
+    bannerBgMobile(无线端背景): Object {
+      children(图片地址): Image
+    },
+    title(标题): Object {
+      children(文字内容),
+    },
+    descriptionContent(说明文字): Object{
+      children(文字内容),
+    },
+    dynamic(动态内容): Object{
+      children(动态内容数组): Array{
+        href(链接地址),
+        children(动态标题),
+      },
+      all(全部动态): Object{
+        href(链接地址),
+        children(全部动态名称),
+      },
+    },
+    btnWrap(按钮组合): Object{
+      btn(主次按钮组合): Object {
+        children(按钮编辑): Array[maxLength: 2, minLength: 1] {
+          href(链接地址),
+          children(按钮名称),
+        }
+      },
+      btnsExtra(文字按钮组合): Object{
+        children(按钮编辑): Array{
+          target(按钮属性): Enum{
+            _blank(新窗口中打开),
+            _self(当前窗口打开),
+          },
+          href(链接地址),
+          children(按钮名称),
+        }
+      }
+    },
+    introText(底部信息链接): Object{
+      children(信息编辑): Array{
+        target(按钮属性): Enum{
+          _blank(新窗口中打开),
+          _self(当前窗口打开),
+        },
+        href(链接地址),
+        children(按钮名称),
+      }
+    },
+    remarks(产品介绍): Object {
+      isVideo(是否 Video): Boolean,
+      video(Video 内容): Object[if: "$.isVideo"] {
+        poster(预览图地址): Image,
+        children(Video 地址): File,
+      },
+      info(信息内容): Object[if:"!$.isVideo"] {
+        name(信息名称): Object{
+          children(名称编辑),
+        },
+        children(信息内容): Object{
+          children(内容编辑),
+        }
+      }
+    }
+  }
+}
+`);
+
 const dataSource = {
   wrapper: {
-    className: 'scenario-wrapper',
+    className: 'product-banner',
   },
-  page: {
-  },
-  titleWrapper: {
-    titleNameEn: {
-      children: 'SCENARIO',
-    },
-    children: [
-      {
-        component: 'h1',
-        className: 'tech-landing-page-title-h1',
-        children: '应用场景',
-      },
-      {
-        className: 'tech-landing-page-title-image',
-        children: 'https://gw.alipayobjects.com/zos/basement_prod/cccd6f14-7b0d-4358-a072-7cd10559348c.svg',
-      },
-    ],
-  },
-  OverPack: { playScale: 0.3 },
   blockWrapper: {
-    className: 'scenario-block-wrapper',
-  },
-  detailedWrapper: {
-    className: 'scenario-detailed-wrapper',
-    detailed: {
-      className: 'scenario-detailed',
+    className: 'product-banner-wrapper',
+    bannerBgPC: {
+      className: 'product-banner-bg-pc',
+      children: 'https://gw.alipayobjects.com/zos/antfincdn/59c51cf5-bab9-4d9e-9745-768c816eaa0c/594fb30f-01c4-4ebe-a93f-18977871ff99/bg.png',
     },
-  },
-  carouselWrapper: {
-    list: {
-      className: 'scenario-list',
+    bannerBgMobile: {
+      className: 'product-banner-bg-mobile',
+      children: 'https://gw.alipayobjects.com/zos/antfincdn/59c51cf5-bab9-4d9e-9745-768c816eaa0c/594fb30f-01c4-4ebe-a93f-18977871ff99/bg.png',
     },
-    children: [
-      {
-        className: 'scenario-item',
-        title: {
-          className: 'scenario-list-title',
-          children: '完整体系化的数据中台',
+    title: {
+      className: 'product-banner-title',
+      children: '微服务平台',
+    },
+    descriptionContent: {
+      className: 'product-banner-description',
+      children: '蚂蚁金服自主研发的金融级分布式中间件',
+    },
+    dynamic: {
+      className: 'product-banner-dynamic',
+      children: [
+        {
+          className: 'product-banner-dynamic-item',
+          component: 'a',
+          href: 'https://tech.antfin.com',
+          children: '微服务平台免费试用',
         },
-        explain: {
-          className: 'scenario-explain',
-          children: [
-            {
-              component: 'h2',
-              children: '缓存热点自动迁移，毫秒级响应',
-            },
-            {
-              children: '蚂蚁金服提供完整的数据中台解决方案，涵盖基础的分布式云平台架构、在线/离线数据的采集能力、海量数据加工和存储能力、数据资产建设能力、数据资产管理能力，并结合多年的风控、营销、客服的经验，提供智能风控、智能营销、智能客服等业务应用的解决方案，帮助企业实现大数据的业务价值。',
-            },
-          ],
+        {
+          className: 'product-banner-dynamic-item',
+          component: 'a',
+          href: 'https://tech.antfin.com',
+          children: '微服务平台免费试用',
         },
-        hot: {
-          className: 'scenario-hot',
-          title: {
-            className: 'scenario-hot-title',
-            children: '相关产品推荐',
+      ],
+      all: {
+        className: 'product-banner-dynamic-all',
+        children: '全部产品动态',
+        component: 'a',
+        href: 'https://tech.antfin.com',
+      },
+    },
+    btnWrap: {
+      className: 'product-banner-btnWrap',
+      btn: {
+        children: [
+          {
+            className: 'product-banner-btn',
+            children: '立即购买',
+            href: 'https://product.cloud.alipay.com/common-buy?productCode=MS',
           },
-          children: {
-            className: 'scenario-hot-button-wrapper',
-            children: [
-              {
-                component: 'a',
-                href: '#',
-                children: '数据访问代理',
-              },
-            ],
+          {
+            className: 'product-banner-btn',
+            children: '进入控制台',
           },
+        ],
+      },
+      btnsExtra: {
+        children: [
+          {
+            className: 'product-banner-btnsExtra',
+            children: '产品价格',
+            component: 'a',
+            href: 'https://tech.antfin.com/price/MS',
+          },
+          {
+            className: 'product-banner-btnsExtra',
+            children: '产品文档',
+            component: 'a',
+            href: 'https://tech.antfin.com/docs/2/57599',
+          },
+          // {
+          //   className: 'product-banner-btnsExtra',
+          //   children: '学习路径',
+          //   component: 'a',
+          //   href: 'https://tech.antfin.com',
+          // },
+          {
+            className: 'product-banner-btnsExtra',
+            children: '相关活动',
+            component: 'a',
+            target: '_blank',
+            href: 'https://tech.antfin.com/community/activities?brandId=6',
+          },
+          // {
+          //   className: 'product-banner-btnsExtra',
+          //   children: '官方专区',
+          //   component: 'a',
+          //   href: 'https://tech.antfin.com',
+          // },
+        ],
+      },
+    },
+    introText: {
+      children: [
+        {
+          className: 'product-banner-introText',
+          children: '最新发布新版本，点击了解详情',
+          component: 'a',
+          href: 'https://www.sofastack.tech/',
+          target: '_blank',
+        },
+        // {
+        //   className: 'product-banner-introText',
+        //   component: 'a',
+        //   children: '最新发布新版本，点击了解详情',
+        //   href: 'https://tech.antfin.com',
+        // },
+      ],
+    },
+    remarks: {
+      className: 'product-banner-remarks',
+      isVideo: false,
+      video: {
+        poster: 'https://gw.alipayobjects.com/zos/antfincdn/b0575e6a-1d46-4992-a441-8bc5d0d1cdf0/d77cf122-ff46-4ca5-81b9-a703bc166734/1.png',
+        children: 'https://os.alipayobjects.com/rmsportal/YhwYbNmKkEYvNtTsxqZK.mp4',
+      },
+      info: {
+        name: {
+          className: 'product-banner-remarks-author',
+          children: '—— 南京银行',
         },
         children: {
-          className: 'scenario-content',
-          children: [
-            {
-              component: 'h2',
-              children: '解决问题',
-            },
-            {
-              component: 'h4',
-              children: '开发简单',
-            },
-            {
-              component: 'p',
-              children: '提供高性能微服务框架，轻松构建原生云应用，具备快速开发，持续交付和部署和能力。',
-            },
-            {
-              component: 'h4',
-              children: '开发简单',
-            },
-            {
-              component: 'p',
-              children: '提供高性能微服务框架，轻松构建原生云应用，具备快速开发，持续交付和部署和能力。',
-            },
-            {
-              component: 'h4',
-              children: '开发简单',
-            },
-            {
-              component: 'p',
-              children: '提供高性能微服务框架，轻松构建原生云应用，具备快速开发，持续交付和部署和能力。',
-            },
-          ],
+          className: 'product-banner-remarks-description',
+          children: 'OceanBase 数据库系统经过蚂蚁金服内部大量互联网金融场景验证，给了我们尝试使用的信心。实践证明，南京银行选择OceanBase数据库，给“鑫云+”互金平台提供了更加坚实的保证。',
         },
       },
-      {
-        className: 'scenario-item',
-        title: {
-          className: 'scenario-list-title',
-          children: '完整体系化的数据中台',
-        },
-        explain: {
-          className: 'scenario-explain',
-          children: [
-            {
-              component: 'h2',
-              children: '缓存热点自动迁移，毫秒级响应',
-            },
-            {
-              children: '蚂蚁金服提供完整的数据中台解决方案，涵盖基础的分布式云平台架构、在线/离线数据的采集能力、海量数据加工和存储能力、数据资产建设能力、数据资产管理能力，并结合多年的风控、营销、客服的经验，提供智能风控、智能营销、智能客服等业务应用的解决方案，帮助企业实现大数据的业务价值。',
-            },
-          ],
-        },
-        hot: {
-          className: 'scenario-hot',
-          title: {
-            className: 'scenario-hot-title',
-            children: '相关产品推荐',
-          },
-          children: {
-            className: 'scenario-hot-button-wrapper',
-            children: [
-              {
-                component: 'a',
-                href: '#',
-                children: '数据访问代理',
-              },
-            ],
-          },
-        },
-        children: {
-          className: 'scenario-content',
-          children: [
-            {
-              children: '解决问题开发简单提供高性能微服务框架，轻松构建原生云应用，具备快速开发，持续交付和部署和能力。开发简单提供高性能微服务框架，轻松构建原生云应用，具备快速开发，持续交付和部署和能力。开发简单提供高性能微服务框架，轻松构建原生云应用，具备快速开发，持续交付和部署和能力。开发简单提供高性能微服务框架，轻松构建原生云应用，具备快速开发，持续交付和部署和能力。',
-            },
-            {
-              className: 'scenario-hot',
-              children: [
-                {
-                  className: 'scenario-hot-title',
-                  children: '相关产品推荐',
-                  component: 'h3',
-                },
-                {
-                  className: 'scenario-hot-button-wrapper',
-                  children: [
-                    {
-                      component: 'a',
-                      href: '#',
-                      children: '数据访问代理',
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      },
-    ],
+    },
   },
 };
 
 class Demo extends React.Component<any, any> {
   render() {
-    const selected = 'carouselWrapper&children&1'.split('&');
+    const selected = 'blockWrapper'.split('&');
     return (
       <div style={{ width: 240, height: 600 }}>
-        <EditorJSON data={dataSource} schema={schema} selected={selected} />
+        <EditorJSON data={dataSource} schema={schemaJSON} selected={selected} />
       </div>
     );
   }

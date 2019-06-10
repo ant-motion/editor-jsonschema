@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Upload } from 'antd';
 
 export type AllObject = { [key: string]: any };
 
@@ -12,7 +13,11 @@ export interface IProps {
   selected?: string[];
   parentSelected?: string[];
   boxClassName?: string;
+  type?: string;
   noTitle?: boolean;
+  uploadProps?: Upload;
+  uploadImageSize?: number;
+  uploadFileSize?: number;
   onChange?: (text: string | any[], selected?: string[]) => void;
   onClick?: (selected?: string[]) => void;
 }

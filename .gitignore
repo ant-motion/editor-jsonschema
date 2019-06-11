@@ -1,9 +1,11 @@
+.storybook
 *.iml
 *.log
 .idea
 .ipr
 .iws
 *~
+.docz
 ~*
 *.diff
 *.patch

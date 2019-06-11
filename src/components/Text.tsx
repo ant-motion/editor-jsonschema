@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Input } from 'antd';
-import classnames from 'classnames';
 import MediumEditor from './MediumEditor';
 import Box from './Box';
-import { remarkStr, IProps } from '../utils';
+import { IProps } from '../utils';
 
+const { TextArea } = Input;
 interface IMProps extends IProps {
   data?: string;
 }
@@ -18,7 +18,9 @@ export default class TextType extends Box<IMProps> {
   }
 
   getChildrenToRender = () => {
-    const {  data, prefixCls, useMediumEditor, selected, onChange } = this.props;
+    const { type, data, prefixCls, useMediumEditor, selected, onChange } = this.props;
+    const isText = type === 'text';
+    const inputOrText = isText ? <TextArea defaultValue={data} onChange={this.onInputChange} /> : <Input defaultValue={data} onChange={this.onInputChange} size="small" />;
     return (
       useMediumEditor ?
       <MediumEditor
@@ -27,8 +29,9 @@ export default class TextType extends Box<IMProps> {
         onChange={(v) => {
           onChange(v, selected);
         }}
+        style={isText ? { minHeight: 120 } : null}
       /> :
-      <Input defaultValue={data} onChange={this.onInputChange} size="small" />
+      inputOrText
     );
   }
 }

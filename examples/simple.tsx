@@ -18,7 +18,7 @@ Object(产品优势_0) {
       children(文字内容),
     },
     descriptionContent(说明文字): Object{
-      children(文字内容),
+      children(文字内容): Text,
     },
     dynamic(动态内容): Object{
       children(动态内容数组): Array{

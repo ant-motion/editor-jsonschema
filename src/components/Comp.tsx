@@ -17,6 +17,7 @@ export default class Comp extends React.Component<IProps> {
       case 'array':
         return <ArrayType {...this.props} type={schema.type} data={data as AllObject[]} />;
       case 'string':
+      case 'text':
         return <Text {...this.props} type={schema.type} data={data as string} />;
       case 'enum':
         return <Enum {...this.props} type={schema.type} />;

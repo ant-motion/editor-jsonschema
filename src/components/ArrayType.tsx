@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Icon } from 'antd';
 import classnames from 'classnames';
-import schemaUtil from 'schema-util';
+import mock from 'schema-util/lib/mock';
 import evaluate from 'simple-evaluate';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 /* import Comp from './Comp'; */
@@ -44,7 +44,7 @@ export default class ArrayType extends React.Component<IMProps> {
   onAddClick = () => {
     const { schema, data, selected, onChange } = this.props;
     const $data = [...data];
-    $data.push(schemaUtil.mock(schema)[0]);
+    $data.push(mock(schema)[0]);
     onChange($data, selected);
   }
 

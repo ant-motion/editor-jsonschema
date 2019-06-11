@@ -5,6 +5,7 @@ interface IProps {
   options?: {};
   defaultText?: string;
   className?: string;
+  style?: React.CSSProperties;
   onChange?: (text: string) => void;
 }
 

@@ -20,6 +20,7 @@ interface IProps extends React.HTMLAttributes<{}> {
   uploadImageSize?: number;
   uploadFileSize?: number;
   onChange?: (data: AllObject) => void;
+  onSelectedChange?: (selected: string[]) => void;
 }
 
 interface IState {
@@ -36,6 +37,7 @@ class EditorJSON extends React.Component<IProps, IState> {
     uploadProps: {
       action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     },
+    onSelectedChange: () => { },
     onChange: () => { },
   };
 
@@ -82,8 +84,11 @@ class EditorJSON extends React.Component<IProps, IState> {
   }
 
   onClick = (selected: string[]) => {
+    const { onSelectedChange } = this.props;
     this.setState({
       selected: selected,
+    }, () => {
+      onSelectedChange(selected);
     });
   }
 
@@ -186,7 +191,18 @@ class EditorJSON extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { className, prefixCls, schema, data, useMediumEditor, uploadImageSize, uploadFileSize, uploadProps, ...props } = this.props;
+    const {
+      className,
+      prefixCls,
+      schema,
+      data,
+      useMediumEditor,
+      uploadImageSize,
+      uploadFileSize,
+      uploadProps,
+      onSelectedChange,
+      ...props
+    } = this.props;
     console.log(schema);
     const wrapperClassName = classnames(
       `${prefixCls}-wrapper`,

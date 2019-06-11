@@ -1,7 +1,7 @@
 # rc-editor-jsonschema
 ---
 
-React EditorJSON Component
+React EditorJSON Component for Ant Design Landing Intranet.
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]

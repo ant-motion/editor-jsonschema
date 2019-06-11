@@ -5,6 +5,7 @@
 .ipr
 .iws
 *~
+.doc
 .docz
 ~*
 *.diff
@@ -25,7 +26,8 @@ node_modules
 build
 lib
 coverage
-*/*.js
-*/*.jsx
+**/*.js
+**/*.jsx
 *.map
 dist
+es

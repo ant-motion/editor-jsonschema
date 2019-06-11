@@ -31,14 +31,15 @@
     "react": "*"
   },
   "scripts": {
-    "build": "father doc build",
+    "build": "father build && tsc",
+    "build:site": "npm run build && father doc build",
     "dist": "father doc build",
     "gh-pages": "npm run dist && father doc deploy",
     "start": "father doc dev",
     "lint": "tslint --project ./tsconfig.json -c ./tslint.json --fix",
     "dev": "father doc dev",
     "test": "father test",
-    "pub": "npm run build && npm publish",
+    "pub": "npm run build:site && npm publish",
     "coverage": "father test --coverage"
   },
   "dependencies": {
@@ -68,7 +69,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "ts-jest": "^24.0.2",
-    "tslint": "^5.17.0"
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.1"
   },
   "pre-commit": [
     "lint"

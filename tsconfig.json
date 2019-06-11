@@ -1,7 +1,26 @@
 {
   "compilerOptions": {
+    "sourceMap": true,
     "moduleResolution": "node",
-    "jsx": "react",
-    "target": "es6"
-  }
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "jsx": "preserve",
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "noImplicitAny": false,
+    "target": "es6",
+    "declaration": true,
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "declarationDir": "./lib",
+    "lib": ["dom", "es7"]
+  },
+  "include": [
+    "./src/**/*",
+    "./test/**/*"
+  ],
+  "exclude": ["node_modules", "lib", "es", "typings", "test"]
 }

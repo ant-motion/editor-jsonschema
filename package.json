@@ -27,23 +27,18 @@
   "license": "MIT",
   "main": "./lib/index",
   "module": "./es/index",
-  "config": {
-    "port": 8008,
-    "entry": {
-      "rc-editor-jsonschema": [
-        "./assets/index.less",
-        "./src/index.tsx"
-      ]
-    }
+  "peerDependencies": {
+    "react": "*"
   },
   "scripts": {
-    "build": "father build && tsc",
+    "build": "father doc build",
     "dist": "father doc build",
     "gh-pages": "npm run dist && father doc deploy",
     "start": "father doc dev",
     "lint": "tslint --project ./tsconfig.json -c ./tslint.json --fix",
     "dev": "father doc dev",
     "test": "father test",
+    "pub": "npm run build && npm publish",
     "coverage": "father test --coverage"
   },
   "dependencies": {

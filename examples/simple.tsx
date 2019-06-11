@@ -211,7 +211,7 @@ const dataSource = {
   },
 };
 
-class Demo extends React.Component<any, any> {
+export default class Demo extends React.Component<any, any> {
   render() {
     const selected = 'blockWrapper'.split('&');
     return (
@@ -221,6 +221,3 @@ class Demo extends React.Component<any, any> {
     );
   }
 }
-
-ReactDOM.render(<Demo />, document.getElementById('__react-content'));
-

@@ -10,7 +10,6 @@ import Boolean from './Boolean';
 export default class Comp extends React.Component<IProps> {
   render() {
     const { schema, data } = this.props;
-    // console.log(schema)
     switch (schema.type) {
       case 'object':
         return <ObjectType {...this.props} type={schema.type} data={data} />;

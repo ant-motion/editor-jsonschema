@@ -100,7 +100,6 @@ class EditorJSON extends React.Component<IProps, IState> {
       schema = !isNumber(key) ? schema.properties[key] : schema;
       data = data[key];
     });
-    console.log(schema, data);
     return { schema, data };
   }
 
@@ -203,7 +202,6 @@ class EditorJSON extends React.Component<IProps, IState> {
       onSelectedChange,
       ...props
     } = this.props;
-    console.log(schema);
     const wrapperClassName = classnames(
       `${prefixCls}-wrapper`,
       className,

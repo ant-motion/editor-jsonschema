@@ -10,7 +10,6 @@ const { Option } = Select;
 export default class Enum extends Box<IProps> {
   getChildrenToRender = () => {
     const { schema, data, parentSchema, selected, onChange } = this.props;
-    console.log(schema, parentSchema, data);
     const defaultValue = [];
     const options = schema.items.map(item => {
       if (data === item.value) {

@@ -148,6 +148,9 @@ class EditorJSON extends React.Component<IProps, IState> {
     selected.splice(i + 1, selected.length);
     this.setState({
       selected,
+    }, () => {
+      const { onSelectedChange } = this.props;
+      onSelectedChange(selected);
     });
   }
 

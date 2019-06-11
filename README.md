@@ -19,7 +19,7 @@ React EditorJSON Component
 
 ## Example
 
-http://localhost:8010/examples/
+http://localhost:8008/examples/
 
 
 online example: http://ant-motion.github.io/editor-jsonschema/
@@ -45,7 +45,17 @@ React.render(<EditorJSON />, container);
 
 | name      | type           | default   | description    |
 |-----------|----------------|-----------|----------------|
-|  -        | -              | -         | -              |
+|  data     | object         | null      | ant design landing 的 dataSource.      |
+|  schema   | object         | null      | 凤蝶的 schema 简单的解析，以 Object 和 Array 做主类，结合 landing 的数据，子级目前只支持 String(default), Text, Enum, Image, File, Boolean。     |
+|  selected | string[]        | null      | 默认树状选择器    |
+|  className | string        | null      | className    |
+|  prefixCls | string        | `rc-editor-jsonschema`      | prefix class.    |
+|  useMediumEditor | boolean        | true      | 输入框的模式，false 为 input 形式，true 为 MediumEditor 模式，产出的 string 将带 html 标签，如 `<p>标题文字</p>`   |
+|  uploadProps | object        | null      | 上传组件的 props.   |
+|  uploadImageSize | number        |  `1m`      | 图片上传的大小限制.   |
+|  uploadVideoSize | number        |  `2m`      | 视频上传的大小限制.   |
+|  onChange   | (data: object) => void;       |  null      | 数据变更的回调。   |
+|  onSelectedChange   | (selected: string[]) => void;       |  null      | 选择器变更的回调。 |
 
 
 ## License

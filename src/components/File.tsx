@@ -20,13 +20,13 @@ export default class File extends Box<IMProps, IState> {
 
 
   beforeUpload = (file) => {
-    const { type, uploadImageSize, uploadFileSize } = this.props;
+    const { type, uploadImageSize, uploadVideoSize } = this.props;
     const { percent } = this.state;
     if (percent) {
       message.error('当前有文件正在上传，请稍后。');
       return false;
     }
-    const size = type === 'image' ? uploadImageSize : uploadFileSize;
+    const size = type === 'image' ? uploadImageSize : uploadVideoSize;
     if (file.size > size) {
       message.error(`大小不能超过 ${Math.floor(size / 1024)}KB`);
       return false;

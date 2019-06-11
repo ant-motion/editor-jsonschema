@@ -8,7 +8,7 @@ import { IProps, remarkStr, isNumber } from '../utils';
 
 export default class ObjectType extends React.Component<IProps> {
   getChildrenToRender = () => {
-    const { schema, data, parentData, prefixCls, useMediumEditor, selected, parentSelected, noTitle, onChange, onClick, uploadProps, uploadFileSize, uploadImageSize } = this.props;
+    const { schema, data, parentData, prefixCls, useMediumEditor, selected, parentSelected, noTitle, onChange, onClick, uploadProps, uploadVideoSize, uploadImageSize } = this.props;
     const { description, properties } = schema;
     const names = description.split(remarkStr);
     // 如果最后个 select 是数字时，在顶级加上数值；
@@ -42,7 +42,7 @@ export default class ObjectType extends React.Component<IProps> {
           boxClassName={boxClass}
           uploadProps={uploadProps}
           uploadImageSize={uploadImageSize}
-          uploadFileSize={uploadFileSize}
+          uploadVideoSize={uploadVideoSize}
         />
       );
     });

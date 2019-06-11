@@ -18,7 +18,7 @@ interface IProps extends React.HTMLAttributes<{}> {
   useMediumEditor?: boolean;
   uploadProps?: Upload;
   uploadImageSize?: number;
-  uploadFileSize?: number;
+  uploadVideoSize?: number;
   onChange?: (data: AllObject) => void;
   onSelectedChange?: (selected: string[]) => void;
 }
@@ -33,7 +33,7 @@ class EditorJSON extends React.Component<IProps, IState> {
     prefixCls: 'rc-editor-jsonschema',
     useMediumEditor: true,
     uploadImageSize: 1024000,
-    uploadFileSize: 2048000,
+    uploadVideoSize: 2048000,
     uploadProps: {
       action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     },
@@ -106,7 +106,7 @@ class EditorJSON extends React.Component<IProps, IState> {
 
   getChildToRender = () => {
     const { selected } = this.state;
-    const { prefixCls, useMediumEditor, uploadProps, uploadImageSize, uploadFileSize } = this.props;
+    const { prefixCls, useMediumEditor, uploadProps, uploadImageSize, uploadVideoSize } = this.props;
     let { schema, data } = this.getDataAndSchema();
     const selectedEnd = selected[selected.length - 1];
     // object 和 array 为带子级 type, 其它的都在 object 里处理;
@@ -139,7 +139,7 @@ class EditorJSON extends React.Component<IProps, IState> {
       selected,
       uploadProps,
       uploadImageSize,
-      uploadFileSize,
+      uploadVideoSize,
       parentSelected: selected,
     });
   }
@@ -198,7 +198,7 @@ class EditorJSON extends React.Component<IProps, IState> {
       data,
       useMediumEditor,
       uploadImageSize,
-      uploadFileSize,
+      uploadVideoSize,
       uploadProps,
       onSelectedChange,
       ...props

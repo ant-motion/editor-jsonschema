@@ -29,7 +29,7 @@ export default class TextType extends Box<IMProps> {
         onChange={(v) => {
           onChange(v, selected);
         }}
-        style={isText ? { minHeight: 120 } : null}
+        style={isText ? { minHeight: 64 } : null}
       /> :
       inputOrText
     );

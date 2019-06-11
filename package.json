@@ -33,13 +33,12 @@
   "scripts": {
     "build": "father build && tsc",
     "build:site": "npm run build && father doc build",
-    "dist": "father doc build",
-    "gh-pages": "npm run dist && father doc deploy",
+    "gh-pages": "father doc deploy",
     "start": "father doc dev",
     "lint": "tslint --project ./tsconfig.json -c ./tslint.json --fix",
     "dev": "father doc dev",
     "test": "father test",
-    "pub": "npm run build:site && npm publish",
+    "pub": "npm run build:site && npm run gh-pages && npm publish",
     "coverage": "father test --coverage"
   },
   "dependencies": {

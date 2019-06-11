@@ -215,7 +215,7 @@ export default class Demo extends React.Component<any, any> {
   render() {
     const selected = 'blockWrapper'.split('&');
     return (
-      <div style={{ width: 240, height: 600 }}>
+      <div style={{ width: 240, height: 600, fontSize: '14px' }}>
         <EditorJSON data={dataSource} schema={schemaJSON} selected={selected} />
       </div>
     );

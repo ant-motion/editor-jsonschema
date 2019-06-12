@@ -13,7 +13,7 @@ export default {
     ['babel-plugin-import', {
       libraryName: 'antd',
       libraryDirectory: 'es',
-      style: 'css',
+      style: true,
     }],
   ],
 };

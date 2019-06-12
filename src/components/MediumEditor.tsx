@@ -3,7 +3,7 @@ import MediumEditor from 'medium-editor';
 
 interface IProps {
   options?: any;
-  defaultText?: string;
+  text?: string;
   className?: string;
   style?: React.CSSProperties;
   onChange?: (text: string) => void;
@@ -14,9 +14,21 @@ export default class Editor extends React.PureComponent<IProps> {
   medium = null;
   dom: HTMLDivElement;
 
+  state = {
+    text: '',
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: props.text,
+    };
+  }
+
   componentDidMount() {
-    const { options, defaultText } = this.props;
-    this.dom.innerHTML = defaultText;
+    const { options } = this.props;
+    const { text } = this.state;
+    this.dom.innerHTML = text;
     this.medium = new MediumEditor(this.dom, {
       ...options,
       placeholder: {
@@ -25,8 +37,18 @@ export default class Editor extends React.PureComponent<IProps> {
       toolbar: false,
     });
     this.medium.subscribe('editableInput', (e, b: HTMLDivElement) => {
-      (this.props.onChange || noop)(b.innerHTML);
+      this.setState({
+        text: b.innerHTML,
+      }, () => {
+        (this.props.onChange || noop)(b.innerHTML);
+      });
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.text !== this.state.text) {
+      this.dom.innerHTML = nextProps.text;
+    }
   }
 
   componentWillUnmount() {
@@ -34,7 +56,7 @@ export default class Editor extends React.PureComponent<IProps> {
   }
 
   render() {
-    const { options, onChange, defaultText, children, ...props } = this.props;
+    const { options, onChange, text, children, ...props } = this.props;
     return (
       <div
         ref={(c) => { this.dom = c; }}

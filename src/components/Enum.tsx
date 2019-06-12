@@ -9,7 +9,7 @@ const { Option } = Select;
 
 export default class Enum extends Box<IProps> {
   getChildrenToRender = () => {
-    const { schema, data, parentSchema, selected, onChange } = this.props;
+    const { schema, data, selected, onChange } = this.props;
     const defaultValue = [];
     const options = schema.items.map(item => {
       if (data === item.value) {
@@ -29,7 +29,7 @@ export default class Enum extends Box<IProps> {
         size="small"
         style={{ width: '100%' }}
         mode={multiple ? 'multiple' : null}
-        defaultValue={defaultValue}
+        value={defaultValue}
         onChange={(v) => {
           onChange(v, selected);
         }}

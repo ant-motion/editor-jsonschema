@@ -21,12 +21,12 @@ export default class TextType extends Box<IMProps> {
     const { type, data, prefixCls, useMediumEditor, selected, onChange } = this.props;
     const isText = type === 'text';
     const inputOrText = isText ?
-      <TextArea defaultValue={data || ''} placeholder="请输入..." onChange={this.onInputChange} /> :
-      <Input defaultValue={data || ''} placeholder="请输入..." onChange={this.onInputChange} size="small" />;
+      <TextArea value={data || ''} placeholder="请输入..." onChange={this.onInputChange} /> :
+      <Input value={data || ''} placeholder="请输入..." onChange={this.onInputChange} size="small" />;
     return (
       useMediumEditor ?
         <MediumEditor
-          defaultText={data || ''}
+          text={data || ''}
           className={`${prefixCls}-editor`}
           onChange={(v) => {
             onChange(v, selected);

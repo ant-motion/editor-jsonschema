@@ -211,11 +211,22 @@ const dataSource = {
 };
 
 export default class Demo extends React.Component<any, any> {
+  state = {
+    selected: ['blockWrapper', 'descriptionContent']
+  };
+
+  onClick = () => {
+    this.setState({
+      selected: ['blockWrapper', 'title']
+    });
+  }
+
   render() {
-    const selected = 'blockWrapper'.split('&');
+    const { selected } = this.state;
     return (
       <div style={{ width: 240, height: 600, fontSize: '14px' }}>
         <EditorJSON data={dataSource} schema={schemaJSON} selected={selected} />
+        <button onClick={this.onClick}>switch select</button>
       </div>
     );
   }

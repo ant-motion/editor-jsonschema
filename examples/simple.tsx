@@ -210,14 +210,16 @@ const dataSource = {
   },
 };
 
+const d = ['blockWrapper', 'btnWrap', 'btn', 'children', '0'];
 export default class Demo extends React.Component<any, any> {
   state = {
-    selected: ['blockWrapper', 'descriptionContent']
+    selected: d
   };
 
   onClick = () => {
+    const { selected } = this.state;
     this.setState({
-      selected: ['blockWrapper', 'title']
+      selected: selected === d ? ['blockWrapper', 'btnWrap', 'btn', 'children', '1'] : d,
     });
   }
 

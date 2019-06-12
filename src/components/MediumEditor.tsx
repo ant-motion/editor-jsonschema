@@ -47,7 +47,13 @@ export default class Editor extends React.PureComponent<IProps> {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.text !== this.state.text) {
-      this.dom.innerHTML = nextProps.text;
+      this.setState({
+        text: nextProps.text
+      }, () => {
+        this.medium.destroy();
+        this.dom.innerHTML = nextProps.text;
+        this.medium.setup();
+      });
     }
   }
 

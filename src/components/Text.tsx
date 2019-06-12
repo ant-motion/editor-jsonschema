@@ -20,18 +20,20 @@ export default class TextType extends Box<IMProps> {
   getChildrenToRender = () => {
     const { type, data, prefixCls, useMediumEditor, selected, onChange } = this.props;
     const isText = type === 'text';
-    const inputOrText = isText ? <TextArea defaultValue={data} onChange={this.onInputChange} /> : <Input defaultValue={data} onChange={this.onInputChange} size="small" />;
+    const inputOrText = isText ?
+      <TextArea defaultValue={data || ''} placeholder="请输入..." onChange={this.onInputChange} /> :
+      <Input defaultValue={data || ''} placeholder="请输入..." onChange={this.onInputChange} size="small" />;
     return (
       useMediumEditor ?
-      <MediumEditor
-        defaultText={data}
-        className={`${prefixCls}-editor`}
-        onChange={(v) => {
-          onChange(v, selected);
-        }}
-        style={isText ? { minHeight: 64 } : null}
-      /> :
-      inputOrText
+        <MediumEditor
+          defaultText={data || ''}
+          className={`${prefixCls}-editor`}
+          onChange={(v) => {
+            onChange(v, selected);
+          }}
+          style={isText ? { minHeight: 64 } : null}
+        /> :
+        inputOrText
     );
   }
 }

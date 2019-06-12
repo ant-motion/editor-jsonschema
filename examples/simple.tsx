@@ -119,7 +119,6 @@ const dataSource = {
         className: 'product-banner-dynamic-all',
         children: '全部产品动态',
         component: 'a',
-        href: 'https://tech.antfin.com',
       },
     },
     btnWrap: {

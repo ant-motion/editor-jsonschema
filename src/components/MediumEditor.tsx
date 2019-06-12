@@ -2,7 +2,7 @@ import * as React from 'react';
 import MediumEditor from 'medium-editor';
 
 interface IProps {
-  options?: {};
+  options?: any;
   defaultText?: string;
   className?: string;
   style?: React.CSSProperties;
@@ -20,8 +20,7 @@ export default class Editor extends React.PureComponent<IProps> {
     this.medium = new MediumEditor(this.dom, {
       ...options,
       placeholder: {
-        text: this.props.children,
-        hideOnClick: true,
+        text: '请输入...',
       },
       toolbar: false,
     });

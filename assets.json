@@ -1,8 +1,8 @@
 {
-  "vendors.css": "/editor-jsonschema/static/css/vendors.dcafc4c7817ae4eea092.css",
+  "vendors.css": "/editor-jsonschema/static/css/vendors.0573591f66203ca8a7af.css",
   "vendors.js": "/editor-jsonschema/static/js/vendors.a1c88b7b.js",
-  "app.js": "/editor-jsonschema/static/js/app.dcafc4c7817ae4eea092.js",
-  "examples-simple.css": "/editor-jsonschema/static/css/examples-simple.dcafc4c7817ae4eea092.css",
+  "app.js": "/editor-jsonschema/static/js/app.0573591f66203ca8a7af.js",
+  "examples-simple.css": "/editor-jsonschema/static/css/examples-simple.0573591f66203ca8a7af.css",
   "examples-simple.js": "/editor-jsonschema/static/js/examples-simple.b7ac102a.js",
   "history.js": "/editor-jsonschema/static/js/history.b3dfacdf.js",
   "index.html": "/editor-jsonschema/index.html"

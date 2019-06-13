@@ -22,6 +22,10 @@ export interface IProps {
   onClick?: (selected?: string[]) => void;
 }
 
+export const isLink = /^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?/;
+
+export const tagRep = /<\/?[a-zA-Z]+(\s+[a-zA-Z]+=".*")*>/g;
+
 export const remarkStr = '$remark=';
 
 export function deepCopy(data) {

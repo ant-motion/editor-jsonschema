@@ -1,5 +1,6 @@
 import * as React from 'react';
 import MediumEditor from 'medium-editor';
+import { tagRep } from '../utils';
 
 interface IProps {
   options?: any;
@@ -30,22 +31,26 @@ export default class Editor extends React.PureComponent<IProps> {
     const { text } = this.state;
     this.dom.innerHTML = text;
     this.medium = new MediumEditor(this.dom, {
-      ...options,
+      toolbar: false,
+      paste: { cleanPastedHTML: true, },
       placeholder: {
         text: '请输入...',
       },
-      toolbar: false,
+      ...options,
     });
     this.addChange();
   }
 
   addChange = () => {
     this.medium.subscribe('editableInput', (e, b: HTMLDivElement) => {
-      this.setState({
-        text: b.innerHTML,
-      }, () => {
-        (this.props.onChange || noop)(b.innerHTML);
-      });
+      if (b.innerHTML.match(tagRep)) {
+        console.log(e.target.innerHTML, b.innerHTML)
+        this.setState({
+          text: b.innerHTML,
+        }, () => {
+          (this.props.onChange || noop)(b.innerHTML);
+        });
+      }
     });
   }
 

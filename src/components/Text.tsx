@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Input } from 'antd';
 import MediumEditor from './MediumEditor';
 import Box from './Box';
-import { IProps } from '../utils';
+import { IProps, isLink } from '../utils';
 
 const { TextArea } = Input;
 interface IMProps extends IProps {
@@ -23,8 +23,11 @@ export default class TextType extends Box<IMProps> {
     const inputOrText = isText ?
       <TextArea value={data || ''} placeholder="请输入..." onChange={this.onInputChange} /> :
       <Input value={data || ''} placeholder="请输入..." onChange={this.onInputChange} size="small" />;
+    // 排除是链接的情况。。
+    const key = selected[selected.length - 1];
+    const useEditor = useMediumEditor && !(key === 'href' || key === 'src' || key === 'link');
     return (
-      useMediumEditor ?
+      useEditor ?
         <MediumEditor
           text={data || ''}
           className={`${prefixCls}-editor`}

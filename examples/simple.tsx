@@ -22,7 +22,7 @@ Object(产品优势_0) {
     },
     dynamic(动态内容): Object{
       children(动态内容数组): Array{
-        href(链接地址),
+        href(链接地址): URL,
         children(动态标题),
       },
       all(全部动态): Object{

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Breadcrumb, Upload } from 'antd';
 import classnames from 'classnames';
-
+import $MediumEditor from './components/MediumEditor';
 import ObjectType from './components/ObjectType';
 import ArrayType from './components/ArrayType';
 import { AllObject, deepCopy, isNumber } from './utils';
@@ -224,3 +224,5 @@ class EditorJSON extends React.Component<IProps, IState> {
   }
 }
 export default EditorJSON;
+
+export const MediumEditor = $MediumEditor;

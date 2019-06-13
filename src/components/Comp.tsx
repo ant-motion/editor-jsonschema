@@ -18,6 +18,8 @@ export default class Comp extends React.Component<IProps> {
       case 'string':
       case 'text':
         return <Text {...this.props} type={schema.type} data={data as string} />;
+      case 'url':
+        return <Text {...this.props} type={schema.type} data={data as string} useMediumEditor={false} />;
       case 'enum':
         return <Enum {...this.props} type={schema.type} />;
       case 'file':

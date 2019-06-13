@@ -36,6 +36,10 @@ export default class Editor extends React.PureComponent<IProps> {
       },
       toolbar: false,
     });
+    this.addChange();
+  }
+
+  addChange = () => {
     this.medium.subscribe('editableInput', (e, b: HTMLDivElement) => {
       this.setState({
         text: b.innerHTML,
@@ -53,6 +57,7 @@ export default class Editor extends React.PureComponent<IProps> {
         this.medium.destroy();
         this.dom.innerHTML = nextProps.text;
         this.medium.setup();
+        this.addChange();
       });
     }
   }

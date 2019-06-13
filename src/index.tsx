@@ -52,6 +52,8 @@ class EditorJSON extends React.Component<IProps, IState> {
   }
 
   componentWillReceiveProps(nextProps) {
+    const { schema } = nextProps;
+    const { properties } = schema;
     if (nextProps.data !== this.props.data) {
       this.setState({
         data: nextProps.data,
@@ -59,7 +61,7 @@ class EditorJSON extends React.Component<IProps, IState> {
     }
     if (nextProps.selected !== this.props.selected) {
       this.setState({
-        selected: nextProps.selected,
+        selected: nextProps.selected || Object.keys(properties),
       });
     }
   }

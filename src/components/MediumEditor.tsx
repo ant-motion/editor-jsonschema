@@ -42,7 +42,7 @@ export default class Editor extends React.PureComponent<IProps> {
   }
 
   addChange = () => {
-    this.medium.subscribe('editableInput', (e, b: HTMLDivElement) => {
+    this.medium.subscribe('blur', (e, b: HTMLDivElement) => {
       if (b.innerHTML.match(tagRep)) {
         this.setState({
           text: b.innerHTML,
@@ -56,7 +56,7 @@ export default class Editor extends React.PureComponent<IProps> {
   componentWillReceiveProps(nextProps) {
     if (nextProps.text !== this.state.text) {
       this.setState({
-        text: nextProps.text
+        text: nextProps.text,
       }, () => {
         this.medium.destroy();
         this.dom.innerHTML = nextProps.text;

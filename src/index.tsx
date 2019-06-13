@@ -29,6 +29,8 @@ interface IState {
 }
 
 class EditorJSON extends React.Component<IProps, IState> {
+  static MediumEditor = $MediumEditor;
+
   static defaultProps = {
     prefixCls: 'rc-editor-jsonschema',
     useMediumEditor: true,

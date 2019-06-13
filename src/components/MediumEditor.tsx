@@ -44,7 +44,6 @@ export default class Editor extends React.PureComponent<IProps> {
   addChange = () => {
     this.medium.subscribe('editableInput', (e, b: HTMLDivElement) => {
       if (b.innerHTML.match(tagRep)) {
-        console.log(e.target.innerHTML, b.innerHTML)
         this.setState({
           text: b.innerHTML,
         }, () => {

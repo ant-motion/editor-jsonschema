@@ -22,6 +22,13 @@ interface IMProps extends IProps {
 }
 
 export default class ArrayType extends React.Component<IMProps> {
+  defaultData: AllObject;
+  constructor(props) {
+    super(props);
+    // mock 数据不能模拟 className, 需要记录刚进入时的数据。
+    // 如果数据是空再使用 mock；
+    this.defaultData = props.data[0];
+  }
   sortArray = (data: any[], index: number, end: number) => {
     const [removed] = data.splice(index, 1);
     data.splice(end, 0, removed);
@@ -44,7 +51,7 @@ export default class ArrayType extends React.Component<IMProps> {
   onAddClick = () => {
     const { schema, data, selected, onChange } = this.props;
     const $data = [...data];
-    $data.push(mock(schema)[0]);
+    $data.push(this.defaultData || mock(schema)[0]);
     onChange($data, selected);
   }
 

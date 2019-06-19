@@ -22,6 +22,8 @@ Object(产品优势_0) {
     },
     dynamic(动态内容): Object{
       children(动态内容数组): Array{
+        className(样式名称): string[default: "product-banner-dynamic-item"],
+        component(组件名): string[default: "a"],
         href(链接地址): URL,
         children(动态标题),
       },
@@ -33,6 +35,7 @@ Object(产品优势_0) {
     btnWrap(按钮组合): Object{
       btn(主次按钮组合): Object {
         children(按钮编辑): Array[maxLength: 2, minLength: 1] {
+          className(样式名称): string[default: "product-banner-btn"],
           href(链接地址),
           children(按钮名称),
         }
@@ -210,7 +213,7 @@ const dataSource = {
   },
 };
 
-const d = ['blockWrapper', 'btnWrap', 'btn', 'children', '0'];
+const d = ['blockWrapper'];
 export default class Demo extends React.Component<any, any> {
   state = {
     selected: d
@@ -227,7 +230,7 @@ export default class Demo extends React.Component<any, any> {
     const { selected } = this.state;
     return (
       <div style={{ width: 240, height: 600, fontSize: '14px' }}>
-        <EditorJSON data={dataSource} schema={schemaJSON} selected={selected} />
+        <EditorJSON data={dataSource} schema={schemaJSON} selected={selected} ignore={['className', 'component']}/>
         <button onClick={this.onClick}>switch select</button>
       </div>
     );

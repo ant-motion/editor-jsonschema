@@ -16,6 +16,7 @@ interface IProps extends React.HTMLAttributes<{}> {
   selected?: string[];
   className?: string;
   prefixCls?: string;
+  ignore?: string[];
   useMediumEditor?: boolean;
   uploadProps?: UploadProps;
   uploadImageSize?: number;
@@ -37,6 +38,7 @@ class EditorJSON extends React.Component<IProps, IState> {
     useMediumEditor: true,
     uploadImageSize: 1024000,
     uploadVideoSize: 2048000,
+    ignore: [],
     uploadProps: {
       action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     },
@@ -110,7 +112,7 @@ class EditorJSON extends React.Component<IProps, IState> {
 
   getChildToRender = () => {
     const { selected } = this.state;
-    const { prefixCls, useMediumEditor, uploadProps, uploadImageSize, uploadVideoSize } = this.props;
+    const { prefixCls, useMediumEditor, uploadProps, uploadImageSize, uploadVideoSize, ignore } = this.props;
     let { schema, data } = this.getDataAndSchema();
     const selectedEnd = selected[selected.length - 1];
     // object 和 array 为带子级 type, 其它的都在 object 里处理;
@@ -144,6 +146,7 @@ class EditorJSON extends React.Component<IProps, IState> {
       uploadProps,
       uploadImageSize,
       uploadVideoSize,
+      ignore,
       parentSelected: selected,
     });
   }

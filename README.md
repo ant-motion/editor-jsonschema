@@ -48,6 +48,7 @@ React.render(<EditorJSON />, container);
 |  data     | object         | null      | ant design landing 的 dataSource.      |
 |  schema   | object         | null      | 凤蝶的 schema 简单的解析，以 Object 和 Array 做主类，结合 landing 的数据，子级目前只支持 String(default), Text, Enum, Image, File, Boolean。     |
 |  selected | string[]        | null      | 默认树状选择器    |
+| ignore    | string[] |  null | 不显示 schema 数据里的 key |
 |  className | string        | null      | className    |
 |  prefixCls | string        | `rc-editor-jsonschema`      | prefix class.    |
 |  useMediumEditor | boolean        | true      | 输入框的模式，false 为 input 形式，true 为 MediumEditor 模式，产出的 string 将带 html 标签，如 `<p>标题文字</p>`   |
@@ -57,6 +58,10 @@ React.render(<EditorJSON />, container);
 |  onChange   | (data: object) => void;       |  null      | 数据变更的回调。   |
 |  onSelectedChange   | (selected: string[]) => void;       |  null      | 选择器变更的回调。 |
 
+
+## 说明
+
+如果是数组形式，请必须将数据里的数值全部添加到 schema 里，并设置默认，用 ignore 隐藏的数值，如 className 数值, 如果不添加，将不会有出现在新增数据里。
 
 ## License
 

@@ -8,7 +8,22 @@ import { IProps, remarkStr, isNumber } from '../utils';
 
 export default class ObjectType extends React.Component<IProps> {
   getChildrenToRender = () => {
-    const { schema, data, parentData, prefixCls, useMediumEditor, selected, parentSelected, noTitle, onChange, onClick, uploadProps, uploadVideoSize, uploadImageSize } = this.props;
+    const {
+      schema,
+      data,
+      parentData,
+      prefixCls,
+      useMediumEditor,
+      selected,
+      parentSelected,
+      noTitle,
+      onChange,
+      onClick,
+      uploadProps,
+      uploadVideoSize,
+      uploadImageSize,
+      ignore,
+    } = this.props;
     const { description, properties } = schema;
     const names = description.split(remarkStr);
     // 如果最后个 select 是数字时，在顶级加上数值；
@@ -22,7 +37,9 @@ export default class ObjectType extends React.Component<IProps> {
     }
     const children = Object.keys(properties).map(key => {
       const item = properties[key];
-
+      if (ignore.indexOf(key) >= 0) {
+        return null;
+      }
       const boxClass = item.type === 'array' && !isOnlyChild || item.type === 'object' && noTop ? `${prefixCls}-box-child` : '';
       const $selected = [...selected, key];
       return (
@@ -40,12 +57,16 @@ export default class ObjectType extends React.Component<IProps> {
           parentSelected={parentSelected}
           noTitle={isOnlyChild && noTop}
           boxClassName={boxClass}
+          ignore={ignore}
           uploadProps={uploadProps}
           uploadImageSize={uploadImageSize}
           uploadVideoSize={uploadVideoSize}
         />
       );
-    });
+    }).filter(c => c);
+    if (!children.length) {
+      return null;
+    }
     return (
       <div>
         {!noTitle && <div
@@ -73,7 +94,7 @@ export default class ObjectType extends React.Component<IProps> {
     );
   }
   render() {
-    const { prefixCls, boxClassName } = this.props;
+    const { prefixCls, boxClassName, ignore } = this.props;
     const className = classnames(`${prefixCls}-box`, boxClassName);
     const children = this.getChildrenToRender();
     return (

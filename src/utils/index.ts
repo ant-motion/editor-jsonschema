@@ -7,6 +7,7 @@ export interface IProps {
   schema?: AllObject;
   parentSchema?: AllObject;
   data?: AllObject | string;
+  ignore?: string[];
   parentData?: AllObject | string;
   prefixCls?: string;
   useMediumEditor?: boolean;

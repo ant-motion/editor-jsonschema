@@ -261,7 +261,7 @@ const dataBasic = {
   },
 };
 
-const d = ['blockWrapper'];
+const d = ['blockWrapper', 'dynamic', 'children'];
 export default class Demo extends React.Component<any, any> {
   state = {
     selected: d

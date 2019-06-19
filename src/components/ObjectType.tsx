@@ -48,8 +48,8 @@ export default class ObjectType extends React.Component<IProps> {
           schema={item}
           parentSchema={properties}
           data={data[key]}
-          dataBasic={dataBasic[key] || {}}
           parentData={data}
+          dataBasic={dataBasic[key] || {}}
           key={key}
           onClick={onClick}
           onChange={onChange}

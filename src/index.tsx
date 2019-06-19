@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Breadcrumb, Upload } from 'antd';
+import { UploadProps } from 'antd/lib/upload';
 import classnames from 'classnames';
 import $MediumEditor from './components/MediumEditor';
 import ObjectType from './components/ObjectType';
@@ -16,7 +17,7 @@ interface IProps extends React.HTMLAttributes<{}> {
   className?: string;
   prefixCls?: string;
   useMediumEditor?: boolean;
-  uploadProps?: Upload;
+  uploadProps?: UploadProps;
   uploadImageSize?: number;
   uploadVideoSize?: number;
   onChange?: (data: AllObject) => void;

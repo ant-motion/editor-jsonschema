@@ -1,9 +1,9 @@
 {
-  "vendors.css": "/editor-jsonschema/static/css/vendors.4edca0f8b71996b4697d.css",
+  "vendors.css": "/editor-jsonschema/static/css/vendors.e66398392818813bf83a.css",
   "vendors.js": "/editor-jsonschema/static/js/vendors.b6dd7b07.js",
-  "app.js": "/editor-jsonschema/static/js/app.4edca0f8b71996b4697d.js",
-  "examples-simple.css": "/editor-jsonschema/static/css/examples-simple.4edca0f8b71996b4697d.css",
-  "examples-simple.js": "/editor-jsonschema/static/js/examples-simple.f9977d08.js",
+  "app.js": "/editor-jsonschema/static/js/app.e66398392818813bf83a.js",
+  "examples-simple.css": "/editor-jsonschema/static/css/examples-simple.e66398392818813bf83a.css",
+  "examples-simple.js": "/editor-jsonschema/static/js/examples-simple.0fde19ee.js",
   "history.js": "/editor-jsonschema/static/js/history.b3dfacdf.js",
   "index.html": "/editor-jsonschema/index.html"
 }

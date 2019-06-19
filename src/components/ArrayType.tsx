@@ -63,7 +63,8 @@ export default class ArrayType extends React.Component<IMProps> {
       return null;
     }
     const children = data.map((item, i) => {
-      let childName = typeof item.children === 'string' ? item.children : `${names[0]}`;
+      let childName = item.title && typeof item.title.children === 'string' ? item.title.children : `${names[0]}`;
+      childName = typeof item.children === 'string' ? item.children : childName;
       const length = childName.length;
       childName = childName.substring(0, 8);
       return (

@@ -213,6 +213,54 @@ const dataSource = {
   },
 };
 
+const dataBasic = {
+  blockWrapper: {
+    dynamic: {
+      children: [
+        {
+          className: 'product-banner-dynamic-item',
+          component: 'a',
+          href: 'https://tech.antfin.com',
+          children: '微服务平台免费试用',
+        },
+      ],
+    },
+    btnWrap: {
+      btn: {
+        children: [
+          {
+            className: 'product-banner-btn',
+            children: '立即购买',
+            href: 'https://product.cloud.alipay.com/common-buy?productCode=MS',
+          }
+        ],
+      },
+      btnsExtra: {
+        children: [
+          {
+            className: 'product-banner-btnsExtra',
+            children: '相关活动',
+            component: 'a',
+            target: '_blank',
+            href: 'https://tech.antfin.com/community/activities?brandId=6',
+          },
+        ],
+      },
+    },
+    introText: {
+      children: [
+        {
+          className: 'product-banner-introText',
+          children: '最新发布新版本，点击了解详情',
+          component: 'a',
+          href: 'https://www.sofastack.tech/',
+          target: '_blank',
+        },
+      ],
+    },
+  },
+};
+
 const d = ['blockWrapper'];
 export default class Demo extends React.Component<any, any> {
   state = {
@@ -230,7 +278,13 @@ export default class Demo extends React.Component<any, any> {
     const { selected } = this.state;
     return (
       <div style={{ width: 240, height: 600, fontSize: '14px' }}>
-        <EditorJSON data={dataSource} schema={schemaJSON} selected={selected} ignore={['className', 'component']}/>
+        <EditorJSON
+          data={dataSource}
+          dataBasic={dataBasic}
+          schema={schemaJSON}
+          selected={selected}
+          ignore={['className', 'component']}
+        />
         <button onClick={this.onClick}>switch select</button>
       </div>
     );

@@ -5,7 +5,7 @@ import mock from 'schema-util/lib/mock';
 import evaluate from 'simple-evaluate';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 /* import Comp from './Comp'; */
-import { IProps, AllObject, remarkStr } from '../utils';
+import { IProps, AllObject, remarkStr, deepCopy } from '../utils';
 
 const barIcon = () => (
   <svg width="1em" height="1em" viewBox="0 0 6 11" fill="currentColor">
@@ -25,9 +25,9 @@ export default class ArrayType extends React.Component<IMProps> {
   defaultData: AllObject;
   constructor(props) {
     super(props);
-    // mock 数据不能模拟 className, 需要记录刚进入时的数据。
+    // mock 数据不能模拟 className, 需要添加 dataBasic 来确认新增的数据, 否则将添加 mock。
     // 如果数据是空再使用 mock；
-    this.defaultData = props.data[0];
+    this.defaultData = deepCopy(props.data[0] || props.dataBasic[0]);
   }
   sortArray = (data: any[], index: number, end: number) => {
     const [removed] = data.splice(index, 1);
@@ -69,6 +69,11 @@ export default class ArrayType extends React.Component<IMProps> {
     if (schema.meta && schema.meta.if && !evaluate(parentData, schema.meta && schema.meta.if)) {
       return null;
     }
+    // 是否显示添加或删除按钮;
+    const maxLength = schema.meta ? schema.meta.maxLength : null;
+    const minLength = schema.meta ? schema.meta.minLength : null;
+    const showAddButton = !maxLength || data.length < maxLength;
+    const showRemButton = !minLength || data.length > minLength;
     const children = data.map((item, i) => {
       let childName = item.title && typeof item.title.children === 'string' ? item.title.children : `${names[0]}`;
       childName = typeof item.children === 'string' ? item.children : childName;
@@ -95,14 +100,16 @@ export default class ArrayType extends React.Component<IMProps> {
                   >
                     {i}. {childName}{childName.length < length ? '...' : ''}
                   </span>
-                  <span
-                    className={`${prefixCls}-array-bar-icon`}
-                    onClick={() => {
-                      this.onRemove(i);
-                    }}
-                  >
-                    <Icon type="delete" />
-                  </span>
+                  {showRemButton && (
+                    <span
+                      className={`${prefixCls}-array-bar-icon`}
+                      onClick={() => {
+                        this.onRemove(i);
+                      }}
+                    >
+                      <Icon type="delete" />
+                    </span>
+                  )}
                 </div>
               );
             }
@@ -111,9 +118,7 @@ export default class ArrayType extends React.Component<IMProps> {
       );
     });
     const className = classnames(`${prefixCls}-title`, `${prefixCls}-array-title`);
-    // 是否显示添加按钮;
-    const maxLength = schema.meta ? schema.meta.maxLength : null;
-    const showAddButton = !maxLength || children.length < maxLength;
+
     return (
       <DragDropContext
         onDragEnd={this.onDragEnd}
@@ -146,14 +151,19 @@ export default class ArrayType extends React.Component<IMProps> {
                 )}
                 {children}
                 {provided.placeholder}
-                {showAddButton ? <div className={`${prefixCls}-array-add`}>
+                {maxLength || minLength ? (
+                  <p style={{ fontSize: '12px' }}>
+                    此数据
+                    {maxLength ? `最多为 ${maxLength} 个${minLength ? '，' : '。'}` : ''}
+                    {minLength ? `最少为 ${minLength} 个。` : ''}
+                  </p>
+                ) : null}
+                {showAddButton && <div className={`${prefixCls}-array-add`}>
                   <a onClick={this.onAddClick}>
                     <Icon type="plus" />
                     新增内容
                   </a>
-                </div> : (
-                    <p>此数据最多为 {maxLength} 个</p>
-                  )}
+                </div>}
               </div>
             )
           }

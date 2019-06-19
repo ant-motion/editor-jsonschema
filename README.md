@@ -46,6 +46,7 @@ React.render(<EditorJSON />, container);
 | name      | type           | default   | description    |
 |-----------|----------------|-----------|----------------|
 |  data     | object         | null      | ant design landing 的 dataSource.      |
+|  dataBasic | object      | null      | 源数据结构，如果 data 数据里的 array 全部删除后，将参照此数据源再新增 |
 |  schema   | object         | null      | 凤蝶的 schema 简单的解析，以 Object 和 Array 做主类，结合 landing 的数据，子级目前只支持 String(default), Text, Enum, Image, File, Boolean。     |
 |  selected | string[]        | null      | 默认树状选择器    |
 | ignore    | string[] |  null | 不显示 schema 数据里的 key |

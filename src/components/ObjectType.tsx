@@ -22,6 +22,7 @@ export default class ObjectType extends React.Component<IProps> {
       uploadProps,
       uploadVideoSize,
       uploadImageSize,
+      dataBasic,
       ignore,
     } = this.props;
     const { description, properties } = schema;
@@ -47,6 +48,7 @@ export default class ObjectType extends React.Component<IProps> {
           schema={item}
           parentSchema={properties}
           data={data[key]}
+          dataBasic={dataBasic[key] || {}}
           parentData={data}
           key={key}
           onClick={onClick}
@@ -94,7 +96,7 @@ export default class ObjectType extends React.Component<IProps> {
     );
   }
   render() {
-    const { prefixCls, boxClassName, ignore } = this.props;
+    const { prefixCls, boxClassName } = this.props;
     const className = classnames(`${prefixCls}-box`, boxClassName);
     const children = this.getChildrenToRender();
     return (

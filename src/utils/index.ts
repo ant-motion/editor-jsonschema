@@ -19,6 +19,7 @@ export interface IProps {
   uploadProps?: Upload;
   uploadImageSize?: number;
   uploadVideoSize?: number;
+  dataBasic?: AllObject;
   onChange?: (text: string | any[], selected?: string[]) => void;
   onClick?: (selected?: string[]) => void;
 }

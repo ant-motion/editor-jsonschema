@@ -13,6 +13,7 @@ import 'medium-editor/dist/css/themes/default.css';
 interface IProps extends React.HTMLAttributes<{}> {
   data: AllObject;
   schema: AllObject;
+  dataBasic?: AllObject;
   selected?: string[];
   className?: string;
   prefixCls?: string;
@@ -39,6 +40,7 @@ class EditorJSON extends React.Component<IProps, IState> {
     uploadImageSize: 1024000,
     uploadVideoSize: 2048000,
     ignore: [],
+    dataBasic: {},
     uploadProps: {
       action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     },
@@ -101,19 +103,20 @@ class EditorJSON extends React.Component<IProps, IState> {
 
   getDataAndSchema = () => {
     let { selected, data } = this.state;
-    let { schema } = this.props;
+    let { schema, dataBasic } = this.props;
     // 显示当前 selected 的所有东西;
     selected.forEach(key => {
       schema = !isNumber(key) ? schema.properties[key] : schema;
       data = data[key];
+      dataBasic = dataBasic[key];
     });
-    return { schema, data };
+    return { schema, data, dataBasic };
   }
 
   getChildToRender = () => {
     const { selected } = this.state;
     const { prefixCls, useMediumEditor, uploadProps, uploadImageSize, uploadVideoSize, ignore } = this.props;
-    let { schema, data } = this.getDataAndSchema();
+    let { schema, data, dataBasic } = this.getDataAndSchema();
     const selectedEnd = selected[selected.length - 1];
     // object 和 array 为带子级 type, 其它的都在 object 里处理;
     let component;
@@ -134,9 +137,9 @@ class EditorJSON extends React.Component<IProps, IState> {
           return null;
       }
     }
-
     return React.createElement(component, {
       data,
+      dataBasic,
       onChange: this.onChange,
       onClick: this.onClick,
       schema,
@@ -211,6 +214,8 @@ class EditorJSON extends React.Component<IProps, IState> {
       uploadVideoSize,
       uploadProps,
       onSelectedChange,
+      dataBasic,
+      ignore,
       ...props
     } = this.props;
     const wrapperClassName = classnames(

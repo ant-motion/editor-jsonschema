@@ -46,7 +46,6 @@ export default class ObjectType extends React.Component<IProps> {
       const $selected = [...selected, key];
       console.log(item.type, isOnlyChild, item.type !== 'array' || item.type !== 'object', propertiesType[i - 1], (propertiesType[i - 1] || '').match(/array|object/));
       const noXTitle = (item.type !== 'array' || item.type !== 'object') && !!(propertiesType[i - 1] || '').match(/array|object/);
-      console.log(noXTitle)
       return (
         <Comp
           schema={item}
@@ -74,7 +73,7 @@ export default class ObjectType extends React.Component<IProps> {
     if (!children.length) {
       return null;
     }
-    console.log(children, noTitle)
+    console.log(children, noTitle);
     return (
       <div>
         {!noTitle && <div

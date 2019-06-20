@@ -13,7 +13,6 @@ export default class Box<props extends IProps, state = any> extends React.Compon
     const childNames = description.split(remarkStr);
     const childrenToRender = this.getChildrenToRender();
     const className = classnames(`${prefixCls}-box`, `${prefixCls}-box-${type}`);
-    console.log(type, noXTitle)
     return (
       <div className={className}>
         {!noTitle && <div className={`${prefixCls}-title-x ${noXTitle ? `${prefixCls}-title-z` : ''}`}>{childNames[0]}</div>}

@@ -16,6 +16,7 @@ export interface IProps {
   boxClassName?: string;
   type?: string;
   noTitle?: boolean;
+  noXTitle?: boolean;
   uploadProps?: Upload;
   uploadImageSize?: number;
   uploadVideoSize?: number;

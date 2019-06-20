@@ -20,6 +20,7 @@ Object(产品优势_0) {
     descriptionContent(说明文字): Object{
       abc(test): Object{
         children(test 文字内容): Image,
+        a(dsfsd),
       },
       children(文字内容): Text,
     },

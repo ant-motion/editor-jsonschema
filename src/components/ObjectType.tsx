@@ -36,13 +36,17 @@ export default class ObjectType extends React.Component<IProps> {
     if (schema.meta && schema.meta.if && !evaluate(parentData, schema.meta && schema.meta.if)) {
       return null;
     }
-    const children = Object.keys(properties).map(key => {
+    const propertiesType = Object.keys(properties).map(key => properties[key].type);
+    const children = Object.keys(properties).map((key, i) => {
       const item = properties[key];
       if (ignore.indexOf(key) >= 0) {
         return null;
       }
       const boxClass = item.type === 'array' && !isOnlyChild || item.type === 'object' && noTop ? `${prefixCls}-box-child` : '';
       const $selected = [...selected, key];
+      console.log(item.type, isOnlyChild, item.type !== 'array' || item.type !== 'object', propertiesType[i - 1], (propertiesType[i - 1] || '').match(/array|object/));
+      const noXTitle = (item.type !== 'array' || item.type !== 'object') && !!(propertiesType[i - 1] || '').match(/array|object/);
+      console.log(noXTitle)
       return (
         <Comp
           schema={item}
@@ -58,6 +62,7 @@ export default class ObjectType extends React.Component<IProps> {
           selected={$selected}
           parentSelected={parentSelected}
           noTitle={isOnlyChild && noTop}
+          noXTitle={noXTitle}
           boxClassName={boxClass}
           ignore={ignore}
           uploadProps={uploadProps}
@@ -69,6 +74,7 @@ export default class ObjectType extends React.Component<IProps> {
     if (!children.length) {
       return null;
     }
+    console.log(children, noTitle)
     return (
       <div>
         {!noTitle && <div

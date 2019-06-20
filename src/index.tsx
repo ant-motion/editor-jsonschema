@@ -108,7 +108,7 @@ class EditorJSON extends React.Component<IProps, IState> {
     selected.forEach(key => {
       schema = !isNumber(key) ? schema.properties[key] : schema;
       data = data[key];
-      dataBasic = dataBasic[isNumber(key) ? 0 : key];
+      dataBasic = dataBasic ? dataBasic[isNumber(key) ? 0 : key] : {};
     });
     return { schema, data, dataBasic };
   }

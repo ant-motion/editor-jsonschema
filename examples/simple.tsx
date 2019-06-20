@@ -18,6 +18,9 @@ Object(产品优势_0) {
       children(文字内容),
     },
     descriptionContent(说明文字): Object{
+      abc(test): Object{
+        children(test 文字内容): Image,
+      },
       children(文字内容): Text,
     },
     dynamic(动态内容): Object{
@@ -100,6 +103,9 @@ const dataSource = {
     },
     descriptionContent: {
       className: 'product-banner-description',
+      abc: {
+        children: 'test',
+      },
       children: '蚂蚁金服自主研发的金融级分布式中间件',
     },
     dynamic: {
@@ -261,7 +267,7 @@ const dataBasic = {
   },
 };
 
-const d = ['blockWrapper', 'dynamic', 'children'];
+const d = ['blockWrapper', 'descriptionContent'];
 export default class Demo extends React.Component<any, any> {
   state = {
     selected: d

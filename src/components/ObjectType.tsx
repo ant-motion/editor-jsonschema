@@ -44,7 +44,6 @@ export default class ObjectType extends React.Component<IProps> {
       }
       const boxClass = item.type === 'array' && !isOnlyChild || item.type === 'object' && noTop ? `${prefixCls}-box-child` : '';
       const $selected = [...selected, key];
-      console.log(item.type, isOnlyChild, item.type !== 'array' || item.type !== 'object', propertiesType[i - 1], (propertiesType[i - 1] || '').match(/array|object/));
       const noXTitle = (item.type !== 'array' || item.type !== 'object') && !!(propertiesType[i - 1] || '').match(/array|object/);
       return (
         <Comp
@@ -73,7 +72,6 @@ export default class ObjectType extends React.Component<IProps> {
     if (!children.length) {
       return null;
     }
-    console.log(children, noTitle);
     return (
       <div>
         {!noTitle && <div

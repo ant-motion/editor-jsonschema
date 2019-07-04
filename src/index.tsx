@@ -104,19 +104,25 @@ class EditorJSON extends React.Component<IProps, IState> {
   getDataAndSchema = () => {
     let { selected, data } = this.state;
     let { schema, dataBasic } = this.props;
+    let parentSchema;
+    let parentData;
     // 显示当前 selected 的所有东西;
-    selected.forEach(key => {
+    selected.forEach((key, i) => {
       schema = !isNumber(key) ? schema.properties[key] : schema;
       data = data[key];
       dataBasic = dataBasic ? dataBasic[isNumber(key) ? 0 : key] : {};
+      if (i === selected.length - 2) {
+        parentSchema = schema;
+        parentData = data;
+      }
     });
-    return { schema, data, dataBasic };
+    return { schema, data, dataBasic, parentData, parentSchema };
   }
 
   getChildToRender = () => {
     const { selected } = this.state;
     const { prefixCls, useMediumEditor, uploadProps, uploadImageSize, uploadVideoSize, ignore } = this.props;
-    let { schema, data, dataBasic } = this.getDataAndSchema();
+    let { schema, data, dataBasic, parentData, parentSchema } = this.getDataAndSchema();
     const selectedEnd = selected[selected.length - 1];
     // object 和 array 为带子级 type, 其它的都在 object 里处理;
     let component;
@@ -139,10 +145,12 @@ class EditorJSON extends React.Component<IProps, IState> {
     }
     return React.createElement(component, {
       data,
+      parentData,
       dataBasic,
       onChange: this.onChange,
       onClick: this.onClick,
       schema,
+      parentSchema,
       prefixCls,
       useMediumEditor,
       selected,

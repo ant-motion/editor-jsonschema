@@ -54,3 +54,7 @@ export function deepCopy(data) {
 }
 
 export const isNumber = (num) => !!Number(num) || Number(num) === 0;
+
+export function currentScrollTop() {
+  return window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
+}

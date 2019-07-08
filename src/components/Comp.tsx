@@ -5,6 +5,7 @@ import ArrayType from './ArrayType';
 import Text from './Text';
 import Enum from './Enum';
 import File from './File';
+import Color from './Color';
 import Boolean from './Boolean';
 
 export default class Comp extends React.Component<IProps> {
@@ -27,6 +28,8 @@ export default class Comp extends React.Component<IProps> {
         return <File {...this.props} type={schema.type} />;
       case 'boolean':
         return <Boolean {...this.props} type={schema.type} />;
+      case 'color':
+        return <Color {...this.props} type={schema.type} data={data as string} />;
       default:
         console.error(`type error: 类型错误(${schema.type})`);
         break;

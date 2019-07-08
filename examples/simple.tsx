@@ -2,11 +2,16 @@
 import EditorJSON from '../src/';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { schema } from 'schema-util';
+import { schema } from 'schemas-utile';
 import '../assets/index.less';
 
 const schemaJSON = schema(`
-Object(产品优势_0) {
+Object(产品优势) {
+  wrapper(背景编辑):Object {
+    backgroundColor(背景颜色): Object {
+      children(背景颜色): Color[color: "#FFFFFF,#FAFBFC"]
+    }
+  },
   blockWrapper(主要信息): Object{
     bannerBgPC(电脑端背景): Object {
       children(图片地址): Image
@@ -87,6 +92,9 @@ Object(产品优势_0) {
 const dataSource = {
   wrapper: {
     className: 'product-banner',
+    backgroundColor: {
+      children: '#FFFFFF',
+    },
   },
   blockWrapper: {
     className: 'product-banner-wrapper',
@@ -221,6 +229,12 @@ const dataSource = {
 };
 
 const dataBasic = {
+  wrapper: {
+    className: 'product-banner',
+    backgroundColor: {
+      children: '#FFFFFF',
+    },
+  },
   blockWrapper: {
     dynamic: {
       children: [
@@ -268,7 +282,7 @@ const dataBasic = {
   },
 };
 
-const d = ['blockWrapper', 'descriptionContent'];
+const d = [];
 export default class Demo extends React.Component<any, any> {
   state = {
     selected: d

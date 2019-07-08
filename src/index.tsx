@@ -31,7 +31,7 @@ interface IState {
   selected: string[];
 }
 
-class EditorJSON extends React.Component<IProps, IState> {
+export default class EditorJSON extends React.Component<IProps, IState> {
   static MediumEditor = $MediumEditor;
 
   static defaultProps = {
@@ -182,7 +182,7 @@ class EditorJSON extends React.Component<IProps, IState> {
     // 取三级面包屑；
     /*  let currentBreadcrumb = selected.filter((_, c) => c);
      currentBreadcrumb = currentBreadcrumb.filter((_, i) => i >= currentBreadcrumb.length - 3); */
-    const currentNum = selected.length - (selected.length > 3 ? 3 : selected.length);
+    const currentNum = selected.length - (selected.length > 2 ? 2 : selected.length);
     const $selected = [...selected];
     const newSelected = $selected.splice(currentNum, $selected.length);
     $selected.forEach(key => {
@@ -206,6 +206,14 @@ class EditorJSON extends React.Component<IProps, IState> {
     });
     return (
       <Breadcrumb>
+        <Breadcrumb.Item
+          key="index_title"
+          onClick={() => {
+            this.onBreadcrumbClick(-1);
+          }}
+        >
+          {schema.description}
+        </Breadcrumb.Item>
         {child}
       </Breadcrumb>
     );
@@ -242,6 +250,5 @@ class EditorJSON extends React.Component<IProps, IState> {
     );
   }
 }
-export default EditorJSON;
 
 export const MediumEditor = $MediumEditor;

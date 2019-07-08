@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Icon } from 'antd';
 import classnames from 'classnames';
-import mock from 'schema-util/lib/mock';
+import mock from 'schemas-utile/lib/mock';
 import evaluate from 'simple-evaluate';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 /* import Comp from './Comp'; */
